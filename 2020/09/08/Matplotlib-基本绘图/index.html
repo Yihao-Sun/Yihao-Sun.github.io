@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="author" content="zchengsite, 1451426471@qq.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  <title>Matplotlib使用教程(二)：基本绘图 | 长大想当太空人</title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/"><img src="/images/avatar.png" alt=""></a>
+    <div class="nickname"><a href="/">长大相当太空人</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Matplotlib使用教程(二)：基本绘图</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+          2020-09-08
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="类别 | categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/" title="查看 python常用库 分类">
+                    <b>#</b> python常用库
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/" title="查看 Matplotlib 分类">
+                    <b>#</b> Matplotlib
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签 | tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Matplotlib/" title="查看 Matplotlib 标签">
+                    <b>#</b> Matplotlib
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="绘制线条"><a href="#绘制线条" class="headerlink" title="绘制线条"></a>绘制线条</h2><p>最基本的绘图为线条的绘制，调用plt.plot方法即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plt.plot(x_list, y_list)， x_list为x轴取值列表， y_list为y轴取值列表，列表中的元素一一对应。</span></span><br><span class="line">plt.plot([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>plt.plot也有一些额外的修饰参数，包括：<strong>c(color)**，</strong>ls(linestyle)<strong>，</strong>lw(linewidth)<strong>，</strong>marker**</p>
+<blockquote>
+<p><strong>color参数可选项：</strong>[<a target="_blank" rel="noopener" href="https://blog.csdn.net/mmc2015/article/details/72829107]">https://blog.csdn.net/mmc2015/article/details/72829107]</a>(https:// blog.csdn.net/mmc2015/article/details/72829107 “color参数”)</p>
+</blockquote>
+<blockquote>
+<p><strong>linestyle参数可选项：</strong><br>‘-‘       solid line style<br>‘–’      dashed line style<br>‘-.’      dash-dot line style<br>‘:’       dotted line style</p>
+</blockquote>
+<blockquote>
+<p><strong>linewidth：</strong>直接输入一个正数值即可</p>
+</blockquote>
+<blockquote>
+<p><strong>marker参数可选项：</strong><br>‘.’       point marker<br>‘,’       pixel marker<br>‘o’       circle marker<br>‘v’       triangle_down marker<br>‘^’       triangle_up marker<br>‘&lt;’       triangle_left marker<br>‘&gt;’       triangle_right marker<br>‘1’       tri_down marker<br>‘2’       tri_up marker<br>‘3’       tri_left marker<br>‘4’       tri_right marker<br>‘s’       square marker<br>‘p’       pentagon marker<br>‘*’       star marker<br>‘h’       hexagon1 marker<br>‘H’       hexagon2 marker<br>‘+’       plus marker<br>‘x’       x marker<br>‘D’       diamond marker<br>‘d’       thin_diamond marker<br>‘|’       vline marker<br>‘_’       hline marker</p>
+</blockquote>
+<p>调用时也可以组合参数，比如我们需要<strong>绿色</strong>、<strong>dashed line</strong>、<strong>o型标记</strong>，即可传参’go–’</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.plot([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], <span class="string">&#x27;go--&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="1.png"></p>
+<h2 id="绘制散点图"><a href="#绘制散点图" class="headerlink" title="绘制散点图"></a>绘制散点图</h2><p>绘制散点图的传参与绘制线图基本一致，调用plt.scatter方法即可，只不过显示出来为散点，并且多了一个<strong>s</strong>参数可以设置点的粗细</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">100</span></span><br><span class="line">X = np.random.normal(<span class="number">0</span>, <span class="number">1</span>, n)</span><br><span class="line">Y = np.random.normal(<span class="number">0</span>, <span class="number">1</span>, n)</span><br><span class="line">T = np.arctan2(Y,X) <span class="comment"># color value</span></span><br><span class="line">plt.scatter(X, Y, c=T, s=<span class="number">15</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="2.png"></p>
+<h2 id="绘制条形图"><a href="#绘制条形图" class="headerlink" title="绘制条形图"></a>绘制条形图</h2><p>绘制条形图调用plt.bar方法，上面两种绘图不同的是，设置颜色要用fc(facecolor)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.bar([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>], fc=<span class="string">&#x27;#9999ff&#x27;</span>)</span><br><span class="line">plt.savefig(<span class="string">&#x27;3.png&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="3.png"></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/09/08/Matplotlib-%E6%A0%87%E6%B3%A8%E4%B8%8E%E5%9B%BE%E4%BE%8B/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>PREV</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+              2020-09-08
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="类别 | categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/" title="查看 python常用库 分类">
+                        <b>#</b> python常用库
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/" title="查看 Matplotlib 分类">
+                        <b>#</b> Matplotlib
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签 | tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Matplotlib/" title="查看 Matplotlib 标签">
+                        <b>#</b> Matplotlib
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/09/08/Matplotlib-%E5%9B%BE%E5%83%8F%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BF%9D%E5%AD%98/" target="_self">
+                <span>NEXT</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%98%E5%88%B6%E7%BA%BF%E6%9D%A1"><span class="toc-text">绘制线条</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%98%E5%88%B6%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="toc-text">绘制散点图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%98%E5%88%B6%E6%9D%A1%E5%BD%A2%E5%9B%BE"><span class="toc-text">绘制条形图</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/Yihao-Sun">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微信" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微博" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2020</a>
+    </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile();
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+  </script>
+
+  
+<script src="/js/search.js"></script>
+
+
+
+
+    </div>
+  </body>
+</html>

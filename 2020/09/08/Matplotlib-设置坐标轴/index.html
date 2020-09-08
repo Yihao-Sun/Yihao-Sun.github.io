@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="author" content="zchengsite, 1451426471@qq.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  <title>Matplotlib使用教程(三)：设置坐标轴 | 长大想当太空人</title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/"><img src="/images/avatar.png" alt=""></a>
+    <div class="nickname"><a href="/">长大相当太空人</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Matplotlib使用教程(三)：设置坐标轴</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+          2020-09-08
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="类别 | categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/" title="查看 python常用库 分类">
+                    <b>#</b> python常用库
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/" title="查看 Matplotlib 分类">
+                    <b>#</b> Matplotlib
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签 | tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Matplotlib/" title="查看 Matplotlib 标签">
+                    <b>#</b> Matplotlib
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="设置坐标轴区间"><a href="#设置坐标轴区间" class="headerlink" title="设置坐标轴区间"></a>设置坐标轴区间</h2><p>调用plt.xlim与plt.ylim，传入坐标区间元组，即可分别设置x轴与y轴的取值范围</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-5</span>, <span class="number">5</span>, <span class="number">100</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.xlim((<span class="number">-10</span>, <span class="number">10</span>)) <span class="comment">#设置x轴的取值范围为[-10, 10]</span></span><br><span class="line">plt.ylim((<span class="number">-2</span>, <span class="number">2</span>)) <span class="comment">#设置y轴的取值范围为[-2, 2]</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="1.png"></p>
+<h2 id="设置坐标轴名称"><a href="#设置坐标轴名称" class="headerlink" title="设置坐标轴名称"></a>设置坐标轴名称</h2><p>调用plt.xlabel与plt.ylabel，传入字符串，即可分别设置x轴与y轴的名称<br>除名称字符串外，可选参数包括: <strong>fontsize</strong>，<strong>fontweight</strong>，<strong>fontstyle</strong>，<strong>c(color)</strong></p>
+<blockquote>
+<p><strong>fontsize</strong>设置字体大小，取值为正数<br><strong>fontweight</strong>设置字体粗细，可选参数 [‘light’, ‘normal’, ‘medium’, ‘semibold’, ‘bold’, ‘heavy’, ‘black’]<br><strong>fontstyle</strong>设置字体样式，可选参数[ ‘normal’ | ‘italic’ | ‘oblique’ ]，italic斜体，oblique倾斜<br><strong>color</strong>设置字体颜色</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-5</span>, <span class="number">5</span>, <span class="number">100</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"></span><br><span class="line">plt.xlim((<span class="number">-10</span>, <span class="number">10</span>)</span><br><span class="line">plt.ylim((<span class="number">-2</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&#x27;value of x&#x27;</span>, fontsize=<span class="number">15</span>, fontweight=<span class="string">&#x27;bold&#x27;</span>, fontstyle=<span class="string">&#x27;italic&#x27;</span>, c=<span class="string">&#x27;g&#x27;</span>) <span class="comment"># 字号15，加粗，斜体，绿色</span></span><br><span class="line">plt.ylabel(<span class="string">&#x27;value of y&#x27;</span>, fontsize=<span class="number">15</span>, fontweight=<span class="string">&#x27;bold&#x27;</span>, fontstyle=<span class="string">&#x27;italic&#x27;</span>, c=<span class="string">&#x27;g&#x27;</span>) <span class="comment"># 字号15，加粗，斜体，绿色</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="2.png"></p>
+<h2 id="设置坐标轴刻度"><a href="#设置坐标轴刻度" class="headerlink" title="设置坐标轴刻度"></a>设置坐标轴刻度</h2><p>调用plt.xticks，plt.yticks，传入刻度值列表，即可分别设置x轴与y轴刻度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-5</span>, <span class="number">5</span>, <span class="number">100</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>, <span class="number">5</span>))</span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.xlim((<span class="number">-10</span>, <span class="number">10</span>))</span><br><span class="line">plt.ylim((<span class="number">-2</span>, <span class="number">2</span>))</span><br><span class="line">plt.xticks(np.arange(<span class="number">-10</span>, <span class="number">10</span>, <span class="number">0.5</span>))</span><br><span class="line">plt.yticks(np.arange(<span class="number">-2</span>, <span class="number">2</span>, <span class="number">0.5</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="3.png"></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/09/08/hello-world/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>PREV</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+              2020-09-08
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="类别 | categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/" title="查看 python常用库 分类">
+                        <b>#</b> python常用库
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/" title="查看 Matplotlib 分类">
+                        <b>#</b> Matplotlib
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签 | tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Matplotlib/" title="查看 Matplotlib 标签">
+                        <b>#</b> Matplotlib
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/09/08/Matplotlib-%E6%A0%87%E6%B3%A8%E4%B8%8E%E5%9B%BE%E4%BE%8B/" target="_self">
+                <span>NEXT</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4%E5%8C%BA%E9%97%B4"><span class="toc-text">设置坐标轴区间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4%E5%90%8D%E7%A7%B0"><span class="toc-text">设置坐标轴名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4%E5%88%BB%E5%BA%A6"><span class="toc-text">设置坐标轴刻度</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/Yihao-Sun">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微信" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微博" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2020</a>
+    </div>
+  
+    <div class="footer-more">
+      <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile();
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+  </script>
+
+  
+<script src="/js/search.js"></script>
+
+
+
+
+    </div>
+  </body>
+</html>
