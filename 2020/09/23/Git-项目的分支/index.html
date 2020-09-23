@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>Git教程(一)：简介与初步配置 | To be a legend</title>
+  <title>Git教程(三)：项目的分支 | To be a legend</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -100,11 +100,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Git教程(一)：简介与初步配置</div>
+      <div class="post-title">Git教程(三)：项目的分支</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-          2020-09-10
+          2020-09-23
         </span>
         
               <span class="post-categories">
@@ -131,45 +131,70 @@
           
       </div>
       <div class="markdown-body">
-        <h2 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h2><p>Git 是目前世界上最先进的分布式版本控制系统(没有之一)，主要为了方便多人协同开发和版本控制。</p>
-<h3 id="Git的组成"><a href="#Git的组成" class="headerlink" title="Git的组成"></a>Git的组成</h3><p>GIt由<strong>本地仓库</strong>与<strong>远程仓库</strong>构成，其中本地仓库由<strong>工作区(workspace)**、</strong>暂存区(stage)<strong>和</strong>版本库(repository)**构成：工作区就是你项目文件夹下的各种文件，这是用户能直接进行添加、修改、删除的操作的地方；暂存区保存了下次将提交到仓库的文件信息列表，用来存储每天一小阶段的工作；版本库保存了你提交的所有版本的数据记录。版本库的内容可以是从本地工作区(从工作区添加到暂存区再到仓库区)提交的，也可以是从远程仓库中拉取下来的。</p>
-<h3 id="Git的工作逻辑"><a href="#Git的工作逻辑" class="headerlink" title="Git的工作逻辑"></a>Git的工作逻辑</h3><p>其工作逻辑如下图所示：</p>
-<p><img src="1.png"></p>
-<p>举个简单的例子，张三想要与他人合作完成一个项目，首先他需要在GitHub上创建一个项目仓库，然后将仓库clone到在自己的电脑上，于是本地就多了一个项目文件夹，这就是本地仓库，里面有若干文件(初始时应该只有一个README)和.git隐藏文件夹，若干文件构成了工作区，.git文件下就保存了该仓库的信息，包括暂存区(存储在index文件中)与版本库的信息；然后张三每次对于工作区文件的更改，都可以通过指令同步到本地仓库中(首先将更改添加(add)到暂存区，然后再提交(commit)到版本库)，接着张三就可以把本地仓库的内容同步(push)到远程仓库。同样的作为其他开发成员的李四也可以从远程仓库拉取(fetch/clone)项目到自己的本地仓库，李四也可以更改项目并上传远程仓库，这样就可以实现多人合作开发。</p>
-<h2 id="Git的初步配置"><a href="#Git的初步配置" class="headerlink" title="Git的初步配置"></a>Git的初步配置</h2><p>首先我们需要在本地安装Git工具，有了这个工具我们就可以执行Git的各种指令，如何安装可以自行Google/百度，然后我们需要一个远程仓库，通常选择GitHub，在GitHub上注册账号即可，然后我们需要<strong>配置ssh密钥</strong>来完成本机与远程仓库的互联。</p>
-<p>GitHub使用ssh认证，通俗来讲，就是你的本地要想向远程仓库上传或者从其拉取，需要一个认证，而这个认证就是ssh，ssh密钥由公钥和私钥组成，其中公钥要填写到GitHub网站上，私钥保存在本机上，具体操作为：</p>
+        <h2 id="分支的概念"><a href="#分支的概念" class="headerlink" title="分支的概念"></a>分支的概念</h2><p>首先我们从人的角度来理解分支，分支就是一个项目的不同版本，即对于同一个项目，不同的人给项目添加不同的模块，那么每个人都会让项目产生一个不同的版本，即各种分支，如下图所示：</p>
+<p><img src="1.svg"></p>
+<p>中间绿线代表主分支的时间线，主分支通常为发行版本，橙色和蓝色分支分别是开发分支，例如张三和李四分别负责为A版本(发行版本)的项目添加一个新的模块，那么他们就会从主分支A结点分裂出两个分支，他们分别在各自的分支上开发，然后开发完毕后，在C结点合并到主分支，这时候C版本(发行版本)的项目就具备了张三和李四新开发的功能。</p>
+<h2 id="分支的工作原理"><a href="#分支的工作原理" class="headerlink" title="分支的工作原理*"></a>分支的工作原理*</h2><p>在之前的描述中，可能大家会认为，每创建一个分支，Git都会像上图那样，从主分支的时间线上分裂出一个新的分支时间线，可事实并非如此：Git从始至终只会存在一条时间线，而不同的分支只是以指针的形式存在，我们借助示意图来分析：</p>
 <ol>
-<li>在本机执行指令</li>
+<li>最开始时间线上只有一个master分支，**注意，时间线有且只有一条，并且时间线上每一个节点都代表一次提交(commit)**。开始的时间上只涉及到两个指针，HEAD和master指针，其中HEAD指向当前分支，master指向提交。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -C &quot;你的GitHub邮箱&quot;</span><br></pre></td></tr></table></figure>
-
-<p>这时会在你本机的主目录下生成一个.ssh的文件夹，里面存放了私钥和公钥，其中后缀为.pub为公钥。</p>
+<p><img src="2.svg"></p>
 <ol start="2">
-<li>复制公钥里面的内容到GitHub上(在Settings里的SSH and GPG keys选项，点击 New SSH key)</li>
+<li>接着我们创建一个新的dev分支，这个时候，Git会创建一个dev指针，并使其直接指向当前提交节点，而我们又发现，当前提交节点不就是master指针指向的吗？所以Git会直接将master指针的值赋给dev指针，下一步，如果我们切换到dev分支，HEAD会指向dev(因为HEAD指针指向当前分支)。</li>
 </ol>
-<p><img src="2.png"></p>
-<p>填写好title和公钥即可</p>
+<p><img src="3.svg"></p>
 <ol start="3">
-<li>在GitHub上新建一个远程仓库(Your repositories里点击new)</li>
+<li>我们在dev分支上修改项目，并进行下一次提交，此时dev指针向前移动一步(因为分支指针指向提交)，又因为HEAD指针指向当前分支(dev)，所以HEAD指针也会跟着向前移动一步。</li>
 </ol>
-<p><img src="3.png"></p>
-<p>填写好信息(推荐勾选”Add a README file”)即可创建完成</p>
+<p><img src="4.svg"></p>
 <ol start="4">
-<li>将远程仓库拉取到本地</li>
+<li>如果需要将dev分支合并到主分支，只需要将master指针前移，即将dev指针的值赋给master，再切换到主分支，HEAD指针指向master。</li>
 </ol>
-<p>点击新建好的仓库，然后复制仓库的URL地址</p>
-<p><img src="4.png"></p>
-<p>在本机上输入指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &quot;你的仓库URL&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="5.svg"></p>
+<ol start="5">
+<li>若要删除dev分支，只需要直接删除dev指针即可。</li>
+</ol>
+<h2 id="管理分支的命令"><a href="#管理分支的命令" class="headerlink" title="管理分支的命令"></a>管理分支的命令</h2><ol>
+<li>查看现有分支</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
 
-<p>到此为止，我们就完成了远程仓库与本地仓库的初始化。</p>
+<ol start="2">
+<li>创建分支</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名 &#x2F;&#x2F;建议英文，不需要加引号</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>切换分支</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>合并分支</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 分支名  &#x2F;&#x2F;会把指定分支合并到你当前所在的分支</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>删除分支</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d 分支名</span><br></pre></td></tr></table></figure>
+
+<h2 id="合并分支的冲突问题"><a href="#合并分支的冲突问题" class="headerlink" title="合并分支的冲突问题"></a>合并分支的冲突问题</h2><p>还记得上一篇文中提到的合并冲突问题吗？解决冲突问题需要我们手动操作，Git会指出在合并过程中发生冲突的部分，在命令行中会指出冲突文件，然后我们打开冲突文件内部，会发现Git同样标明了冲突的文本段，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hello world！</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">111</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">222</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>，<code>=======</code>，<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>指出了发生冲突的部分，我们修改冲突文件，例如修改如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello world！</span><br><span class="line">111</span><br></pre></td></tr></table></figure>
+
+<p>保存文件，再手动提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 1.txt</span><br><span class="line">git commit -m &quot;conflict fixed&quot;</span><br></pre></td></tr></table></figure>
+
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/03/19/Matplotlib-%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4/" target="_self">
+              <a href="/2020/09/15/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8E%E6%8B%89%E5%8F%96/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>PREV</span>
               </a>
@@ -178,7 +203,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-              2020-09-10
+              2020-09-23
             </span>
             
                   <span class="post-categories">
@@ -206,11 +231,6 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2020/09/15/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8E%E6%8B%89%E5%8F%96/" target="_self">
-                <span>NEXT</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -219,7 +239,7 @@
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%AE%80%E4%BB%8B"><span class="toc-text">Git简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-text">Git的组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git%E7%9A%84%E5%B7%A5%E4%BD%9C%E9%80%BB%E8%BE%91"><span class="toc-text">Git的工作逻辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%9A%84%E5%88%9D%E6%AD%A5%E9%85%8D%E7%BD%AE"><span class="toc-text">Git的初步配置</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">分支的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">分支的工作原理*</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%88%86%E6%94%AF%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-text">管理分支的命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="toc-text">合并分支的冲突问题</span></a></li></ol>
     </div>
   </div>
 

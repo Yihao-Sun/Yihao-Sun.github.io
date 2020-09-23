@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>Git教程(一)：简介与初步配置 | To be a legend</title>
+  <title>Git教程(二)：项目的上传与拉取 | To be a legend</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -100,11 +100,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Git教程(一)：简介与初步配置</div>
+      <div class="post-title">Git教程(二)：项目的上传与拉取</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-          2020-09-10
+          2020-09-15
         </span>
         
               <span class="post-categories">
@@ -131,45 +131,40 @@
           
       </div>
       <div class="markdown-body">
-        <h2 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h2><p>Git 是目前世界上最先进的分布式版本控制系统(没有之一)，主要为了方便多人协同开发和版本控制。</p>
-<h3 id="Git的组成"><a href="#Git的组成" class="headerlink" title="Git的组成"></a>Git的组成</h3><p>GIt由<strong>本地仓库</strong>与<strong>远程仓库</strong>构成，其中本地仓库由<strong>工作区(workspace)**、</strong>暂存区(stage)<strong>和</strong>版本库(repository)**构成：工作区就是你项目文件夹下的各种文件，这是用户能直接进行添加、修改、删除的操作的地方；暂存区保存了下次将提交到仓库的文件信息列表，用来存储每天一小阶段的工作；版本库保存了你提交的所有版本的数据记录。版本库的内容可以是从本地工作区(从工作区添加到暂存区再到仓库区)提交的，也可以是从远程仓库中拉取下来的。</p>
-<h3 id="Git的工作逻辑"><a href="#Git的工作逻辑" class="headerlink" title="Git的工作逻辑"></a>Git的工作逻辑</h3><p>其工作逻辑如下图所示：</p>
-<p><img src="1.png"></p>
-<p>举个简单的例子，张三想要与他人合作完成一个项目，首先他需要在GitHub上创建一个项目仓库，然后将仓库clone到在自己的电脑上，于是本地就多了一个项目文件夹，这就是本地仓库，里面有若干文件(初始时应该只有一个README)和.git隐藏文件夹，若干文件构成了工作区，.git文件下就保存了该仓库的信息，包括暂存区(存储在index文件中)与版本库的信息；然后张三每次对于工作区文件的更改，都可以通过指令同步到本地仓库中(首先将更改添加(add)到暂存区，然后再提交(commit)到版本库)，接着张三就可以把本地仓库的内容同步(push)到远程仓库。同样的作为其他开发成员的李四也可以从远程仓库拉取(fetch/clone)项目到自己的本地仓库，李四也可以更改项目并上传远程仓库，这样就可以实现多人合作开发。</p>
-<h2 id="Git的初步配置"><a href="#Git的初步配置" class="headerlink" title="Git的初步配置"></a>Git的初步配置</h2><p>首先我们需要在本地安装Git工具，有了这个工具我们就可以执行Git的各种指令，如何安装可以自行Google/百度，然后我们需要一个远程仓库，通常选择GitHub，在GitHub上注册账号即可，然后我们需要<strong>配置ssh密钥</strong>来完成本机与远程仓库的互联。</p>
-<p>GitHub使用ssh认证，通俗来讲，就是你的本地要想向远程仓库上传或者从其拉取，需要一个认证，而这个认证就是ssh，ssh密钥由公钥和私钥组成，其中公钥要填写到GitHub网站上，私钥保存在本机上，具体操作为：</p>
+        <h2 id="项目上传"><a href="#项目上传" class="headerlink" title="项目上传"></a>项目上传</h2><p>项目上传，即把本地仓库中的内容上传到远端仓库，主要分为三个步骤：</p>
 <ol>
-<li>在本机执行指令</li>
+<li>将工作区内容添加到暂存区</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -C &quot;你的GitHub邮箱&quot;</span><br></pre></td></tr></table></figure>
+<p>由于我们对项目文件的直接操作都是在工作区的，所以第一步要把我们工作区的文件添加到暂存区，这步非常关键，因为如果你的对文件的增删改的变动没有被添加到暂存区的话，这些变动是不能被提交到本地版本库的。命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add [参数] &lt;路径&gt;</span><br><span class="line">git add . &#x2F;&#x2F;.代表当前目录，不加参数默认为将修改操作的文件和未跟踪新添加的文件添加到暂存区，注意不包括删除</span><br><span class="line">git add -u . &#x2F;&#x2F;参数-u表示将已跟踪文件中的修改和删除的文件添加到暂存区，注意不包括新增的文件</span><br><span class="line">git add -A . &#x2F;&#x2F;参数-A表示将所有已跟踪文件的修改和删除与新增的未跟踪文件都添加到暂存区</span><br></pre></td></tr></table></figure>
 
-<p>这时会在你本机的主目录下生成一个.ssh的文件夹，里面存放了私钥和公钥，其中后缀为.pub为公钥。</p>
+<p>注：可以通过使用 <strong>git status</strong> 命令查看工作区代码相对于暂存区的差别。</p>
 <ol start="2">
-<li>复制公钥里面的内容到GitHub上(在Settings里的SSH and GPG keys选项，点击 New SSH key)</li>
+<li>将暂存区内容提交到本地版本库</li>
 </ol>
-<p><img src="2.png"></p>
-<p>填写好title和公钥即可</p>
-<ol start="3">
-<li>在GitHub上新建一个远程仓库(Your repositories里点击new)</li>
-</ol>
-<p><img src="3.png"></p>
-<p>填写好信息(推荐勾选”Add a README file”)即可创建完成</p>
-<ol start="4">
-<li>将远程仓库拉取到本地</li>
-</ol>
-<p>点击新建好的仓库，然后复制仓库的URL地址</p>
-<p><img src="4.png"></p>
-<p>在本机上输入指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &quot;你的仓库URL&quot;</span><br></pre></td></tr></table></figure>
+<p>直接上命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;注释&quot; &#x2F;&#x2F;注释一般写本次提交所变更的内容</span><br></pre></td></tr></table></figure>
 
-<p>到此为止，我们就完成了远程仓库与本地仓库的初始化。</p>
+<p>commit命令会在本地版本库生成一个40为的哈希值，也叫commit id，同时本地库有一个HEAD文件(指针)，指向最新的commit id(言外之意本地库保存了多个commit id，可以通过HEAD指针的移动来进行版本回退)。</p>
+<ol start="3">
+<li>将本地版本库推送到远程仓库</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>远程主机名一般为origin，本地分支名这个参数通常可以省略，因为省略时默认为你当前所在的本地分支，远程分支名不能省略(关于分支的概念下一节会详细介绍)，由于本地仓库与远程仓库都有一个初始默认分支master，所以大多数教程最常见的命令就是 <strong>git push origin master</strong>(注意这里的master是远程分支名)。push命令执行完后，<strong>远程仓库的指定分支将会被你提交的本地库分支完全覆盖</strong>。</p>
+<h2 id="项目拉取"><a href="#项目拉取" class="headerlink" title="项目拉取"></a>项目拉取</h2><p>项目拉取顾名思义，即将远程库中的内容拉取到本地库中，具体的应用场景为，你的团队人员修改了项目，上传到了远程仓库，你需要接着他的修改继续做，所以你就需要拉取远程仓库的内容到你的本地库。命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>同样的，远程主机名一般为origin，本地分支名参数通常可以省略，省略时默认为你当前所在的本地分支，所以常见的命令就是 <strong>git pull origin master</strong>(注意这里的master是远程分支名)。执行完之后，远程仓库指定分支的内容就会被合并(merge)到你指定的本地分支上，<strong>注意，是合并，而不是完全覆盖</strong>。</p>
+<p>你可能会有一些疑问，若是我本地库有一个文件1.txt，远程库有一个新增的文件2.txt，若想合并，只需要将2.txt添加到我的本地库即可，但是如果远程库的更改是在1.txt上的，例如本地库的1.txt中写的是”111”，远程库中的1.txt中写的是“222”，这时候该如何合并？是遵从本地库还是遵从远程库？关于这种冲突的情况在下节中会详细介绍。</p>
+<p>最后再谈一下fetch与merge指令，fetch与pull指令很相似，也是将远程库的内容拉取到本地库，但是却不同，网上很多教程说，pull = fetch + merge，即fetch只是将远程库的内容拉取下来了，但是并没有合并到本地库，也就是说你单纯执行fetch命令，并不会更改本地库的内容，需要进一步执行merge命令，才能将拉取下来的内容合并到本地仓库，其实从更本质的角度来说，<strong>fetch指令只是将本地库所关联的远程库的commit id更新到最新，但本地库并不会发生变化；而pull会更新本地库的HEAD指针，所以能够改变本地库</strong>。<a target="_blank" rel="noopener" href="https://blog.csdn.net/a19881029/article/details/42245955">详细解释</a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/03/19/Matplotlib-%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4/" target="_self">
+              <a href="/2020/09/10/Git-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%88%9D%E6%AD%A5%E9%85%8D%E7%BD%AE/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>PREV</span>
               </a>
@@ -178,7 +173,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-              2020-09-10
+              2020-09-15
             </span>
             
                   <span class="post-categories">
@@ -206,7 +201,7 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2020/09/15/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8E%E6%8B%89%E5%8F%96/" target="_self">
+              <a href="/2020/09/23/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF/" target="_self">
                 <span>NEXT</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -219,7 +214,7 @@
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%AE%80%E4%BB%8B"><span class="toc-text">Git简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-text">Git的组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git%E7%9A%84%E5%B7%A5%E4%BD%9C%E9%80%BB%E8%BE%91"><span class="toc-text">Git的工作逻辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%9A%84%E5%88%9D%E6%AD%A5%E9%85%8D%E7%BD%AE"><span class="toc-text">Git的初步配置</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0"><span class="toc-text">项目上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%8B%89%E5%8F%96"><span class="toc-text">项目拉取</span></a></li></ol>
     </div>
   </div>
 

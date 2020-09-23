@@ -6,7 +6,7 @@
   <link href="https://yihao-sun.github.io/atom.xml" rel="self"/>
   
   <link href="https://yihao-sun.github.io/"/>
-  <updated>2020-09-10T07:29:47.000Z</updated>
+  <updated>2020-09-23T06:49:48.000Z</updated>
   <id>https://yihao-sun.github.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git教程(三)：项目的分支</title>
+    <link href="https://yihao-sun.github.io/2020/09/23/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF/"/>
+    <id>https://yihao-sun.github.io/2020/09/23/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF/</id>
+    <published>2020-09-23T06:49:48.000Z</published>
+    <updated>2020-09-23T06:49:48.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;分支的概念&quot;&gt;&lt;a href=&quot;#分支的概念&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Git" scheme="https://yihao-sun.github.io/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="https://yihao-sun.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git教程(二)：项目的上传与拉取</title>
+    <link href="https://yihao-sun.github.io/2020/09/15/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8E%E6%8B%89%E5%8F%96/"/>
+    <id>https://yihao-sun.github.io/2020/09/15/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8E%E6%8B%89%E5%8F%96/</id>
+    <published>2020-09-15T07:27:16.000Z</published>
+    <updated>2020-09-15T07:27:16.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;项目上传&quot;&gt;&lt;a href=&quot;#项目上传&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Git" scheme="https://yihao-sun.github.io/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="https://yihao-sun.github.io/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Git教程(一)：简介与初步配置</title>
@@ -28,7 +78,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;Git简介&quot;&gt;&lt;a href=&quot;#Git简介&quot; class=&quot;headerlink&quot; title=&quot;Git简介&quot;&gt;&lt;/a&gt;Git简介&lt;/h2&gt;&lt;p&gt;Git 是目前世界上最先进的分布式版本控制系统（没有之一），主要为了方便多人协同开发和版本控制。&lt;/p&gt;
+    <summary type="html">&lt;h2 id=&quot;Git简介&quot;&gt;&lt;a href=&quot;#Git简介&quot; class=&quot;headerlink&quot; title=&quot;Git简介&quot;&gt;&lt;/a&gt;Git简介&lt;/h2&gt;&lt;p&gt;Git 是目前世界上最先进的分布式版本控制系统(没有之一)，主要为了方便多人协同开发和版本控制。&lt;/p&gt;
 &lt;h3</summary>
         
       
