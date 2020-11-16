@@ -93,9 +93,9 @@
   </entry>
   
   <entry>
-    <title>Matplotlib使用教程(三)：设置坐标轴</title>
-    <link href="https://yihao-sun.github.io/2020/03/19/Matplotlib-%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4/"/>
-    <id>https://yihao-sun.github.io/2020/03/19/Matplotlib-%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4/</id>
+    <title>Matplotlib使用教程(四)：标注与图例</title>
+    <link href="https://yihao-sun.github.io/2020/03/19/Matplotlib-%E6%A0%87%E6%B3%A8%E4%B8%8E%E5%9B%BE%E4%BE%8B/"/>
+    <id>https://yihao-sun.github.io/2020/03/19/Matplotlib-%E6%A0%87%E6%B3%A8%E4%B8%8E%E5%9B%BE%E4%BE%8B/</id>
     <published>2020-03-18T16:00:00.000Z</published>
     <updated>2020-03-18T16:00:00.000Z</updated>
     
@@ -104,7 +104,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;设置坐标轴区间&quot;&gt;&lt;a href=&quot;#设置坐标轴区间&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;text标注&quot;&gt;&lt;a href=&quot;#text标注&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -120,9 +120,9 @@
   </entry>
   
   <entry>
-    <title>Matplotlib使用教程(四)：标注与图例</title>
-    <link href="https://yihao-sun.github.io/2020/03/18/Matplotlib-%E6%A0%87%E6%B3%A8%E4%B8%8E%E5%9B%BE%E4%BE%8B/"/>
-    <id>https://yihao-sun.github.io/2020/03/18/Matplotlib-%E6%A0%87%E6%B3%A8%E4%B8%8E%E5%9B%BE%E4%BE%8B/</id>
+    <title>Matplotlib使用教程(三)：设置坐标轴</title>
+    <link href="https://yihao-sun.github.io/2020/03/18/Matplotlib-%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4/"/>
+    <id>https://yihao-sun.github.io/2020/03/18/Matplotlib-%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4/</id>
     <published>2020-03-17T16:00:00.000Z</published>
     <updated>2020-03-17T16:00:00.000Z</updated>
     
@@ -131,7 +131,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;text标注&quot;&gt;&lt;a href=&quot;#text标注&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;设置坐标轴区间&quot;&gt;&lt;a href=&quot;#设置坐标轴区间&quot; class=&quot;headerlink&quot;</summary>
         
       
     

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>Matplotlib使用教程(四)：标注与图例 | To be a legend</title>
+  <title>Matplotlib使用教程(三)：设置坐标轴 | To be a legend</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -100,7 +100,7 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Matplotlib使用教程(四)：标注与图例</div>
+      <div class="post-title">Matplotlib使用教程(三)：设置坐标轴</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
@@ -137,21 +137,22 @@
           
       </div>
       <div class="markdown-body">
-        <h2 id="text标注"><a href="#text标注" class="headerlink" title="text标注"></a>text标注</h2><p>text用于直接在图像中的任意位置进行标注，传入参数包括：<strong>x</strong>，<strong>y</strong>，<strong>s</strong>，<strong>fontsize</strong>，<strong>fontstyle</strong>，<strong>fontweight</strong></p>
-<blockquote>
-<p><strong>x</strong>为横坐标<br><strong>y</strong>为纵坐标<br><strong>s</strong>为标注字符串<br><strong>fontsize/fontstyle/fontweight</strong>为字体设置</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">X = np.linspace(<span class="number">-5</span>, <span class="number">5</span>)</span><br><span class="line">y = np.sin(X)</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line">plt.plot(X, y)</span><br><span class="line"></span><br><span class="line">plt.text(x=<span class="number">3.14</span> / <span class="number">2</span>, y=<span class="number">1</span>, s=<span class="string">&#x27;Max&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+        <h2 id="设置坐标轴区间"><a href="#设置坐标轴区间" class="headerlink" title="设置坐标轴区间"></a>设置坐标轴区间</h2><p>调用plt.xlim与plt.ylim，传入坐标区间元组，即可分别设置x轴与y轴的取值范围</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-5</span>, <span class="number">5</span>, <span class="number">100</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.xlim((<span class="number">-10</span>, <span class="number">10</span>)) <span class="comment">#设置x轴的取值范围为[-10, 10]</span></span><br><span class="line">plt.ylim((<span class="number">-2</span>, <span class="number">2</span>)) <span class="comment">#设置y轴的取值范围为[-2, 2]</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="1.png"></p>
-<h2 id="annotate标注"><a href="#annotate标注" class="headerlink" title="annotate标注"></a>annotate标注</h2><p>annotate用于给图像中的某个点进行标注，调用plt.annotate方法即可，传入参数包括：<strong>s</strong>，<strong>xy</strong>，<strong>xytext</strong>，<strong>textcoords</strong>，<strong>fontsize</strong>，<strong>fontstyle</strong>，<strong>fontweight</strong></p>
+<h2 id="设置坐标轴名称"><a href="#设置坐标轴名称" class="headerlink" title="设置坐标轴名称"></a>设置坐标轴名称</h2><p>调用plt.xlabel与plt.ylabel，传入字符串，即可分别设置x轴与y轴的名称<br>除名称字符串外，可选参数包括: <strong>fontsize</strong>，<strong>fontweight</strong>，<strong>fontstyle</strong>，<strong>c(color)</strong></p>
 <blockquote>
-<p><strong>s</strong>为标注字符串<br><strong>xy</strong>为被标注点位置坐标<br><strong>xytext</strong>为标注文字的坐标(一般与textcoords=’offset points’连用，此时坐标为相对于xy的偏移值)<br><strong>textcoords</strong>一般传入’offset points’<br><strong>fontsize/fontstyle/fontweight</strong>为字体设置</p>
+<p><strong>fontsize</strong>设置字体大小，取值为正数<br><strong>fontweight</strong>设置字体粗细，可选参数 [‘light’, ‘normal’, ‘medium’, ‘semibold’, ‘bold’, ‘heavy’, ‘black’]<br><strong>fontstyle</strong>设置字体样式，可选参数[ ‘normal’ | ‘italic’ | ‘oblique’ ]，italic斜体，oblique倾斜<br><strong>color</strong>设置字体颜色</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">X = np.linspace(<span class="number">-5</span>, <span class="number">5</span>)</span><br><span class="line">y = np.sin(X)</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line">plt.plot(X, y)</span><br><span class="line"></span><br><span class="line">plt.annotate(s=<span class="string">&#x27;Max&#x27;</span>, xy=(<span class="number">3.14</span> / <span class="number">2</span>, <span class="number">1</span>), xytext=(<span class="number">0</span>, <span class="number">0.1</span>), textcoords=<span class="string">&#x27;offset points&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="1.png"></p>
-<h2 id="添加图例"><a href="#添加图例" class="headerlink" title="添加图例"></a>添加图例</h2><p>调用plt.legend方法即可给一张figure中的不同曲线添加图例标注，直接传入一个图例名称列表</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">X = np.linspace(<span class="number">-5</span>, <span class="number">5</span>)</span><br><span class="line">y1 = np.sin(X)</span><br><span class="line">y2 = np.cos(X)</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line">plt.plot(X, y1)</span><br><span class="line">plt.plot(X, y2)</span><br><span class="line"></span><br><span class="line">plt.legend([<span class="string">&#x27;sin&#x27;</span>, <span class="string">&#x27;cos&#x27;</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-5</span>, <span class="number">5</span>, <span class="number">100</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line"></span><br><span class="line">plt.xlim((<span class="number">-10</span>, <span class="number">10</span>)</span><br><span class="line">plt.ylim((<span class="number">-2</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">plt.xlabel(<span class="string">&#x27;value of x&#x27;</span>, fontsize=<span class="number">15</span>, fontweight=<span class="string">&#x27;bold&#x27;</span>, fontstyle=<span class="string">&#x27;italic&#x27;</span>, c=<span class="string">&#x27;g&#x27;</span>) <span class="comment"># 字号15，加粗，斜体，绿色</span></span><br><span class="line">plt.ylabel(<span class="string">&#x27;value of y&#x27;</span>, fontsize=<span class="number">15</span>, fontweight=<span class="string">&#x27;bold&#x27;</span>, fontstyle=<span class="string">&#x27;italic&#x27;</span>, c=<span class="string">&#x27;g&#x27;</span>) <span class="comment"># 字号15，加粗，斜体，绿色</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="2.png"></p>
+<h2 id="设置坐标轴刻度"><a href="#设置坐标轴刻度" class="headerlink" title="设置坐标轴刻度"></a>设置坐标轴刻度</h2><p>调用plt.xticks，plt.yticks，传入刻度值列表，即可分别设置x轴与y轴刻度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-5</span>, <span class="number">5</span>, <span class="number">100</span>)</span><br><span class="line">y = np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.xlim((<span class="number">-10</span>, <span class="number">10</span>))</span><br><span class="line">plt.ylim((<span class="number">-2</span>, <span class="number">2</span>))</span><br><span class="line">plt.xticks(np.arange(<span class="number">-10</span>, <span class="number">10</span>, <span class="number">0.5</span>))</span><br><span class="line">plt.yticks(np.arange(<span class="number">-2</span>, <span class="number">2</span>, <span class="number">0.5</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="3.png"></p>
+<p>在plt.xticks/yticks传入第二个参数即可设置刻度别名，该参数为刻度值别名列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; np.linspace(1, 12, 12)</span><br><span class="line">y &#x3D; np.sin(x)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.xticks(np.arange(1, 13, 1), [&#39;Jan&#39;, &#39;Feb&#39;, &#39;Mar&#39;, &#39;Apr&#39;, &#39;May&#39;, &#39;Jun&#39;, &#39;Jul&#39;, &#39;Aug&#39;, &#39;Sep&#39;, &#39;Oct&#39;, &#39;Nov&#39;, &#39;Dec&#39;])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="4.png"></p>
 
       </div>
       
@@ -201,7 +202,7 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2020/03/19/Matplotlib-%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4/" target="_self">
+              <a href="/2020/03/19/Matplotlib-%E6%A0%87%E6%B3%A8%E4%B8%8E%E5%9B%BE%E4%BE%8B/" target="_self">
                 <span>NEXT</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -214,7 +215,7 @@
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#text%E6%A0%87%E6%B3%A8"><span class="toc-text">text标注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#annotate%E6%A0%87%E6%B3%A8"><span class="toc-text">annotate标注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%9B%BE%E4%BE%8B"><span class="toc-text">添加图例</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4%E5%8C%BA%E9%97%B4"><span class="toc-text">设置坐标轴区间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4%E5%90%8D%E7%A7%B0"><span class="toc-text">设置坐标轴名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E8%BD%B4%E5%88%BB%E5%BA%A6"><span class="toc-text">设置坐标轴刻度</span></a></li></ol>
     </div>
   </div>
 
