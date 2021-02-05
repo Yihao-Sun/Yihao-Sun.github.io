@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>Git教程(三)：项目的分支 | To be a legend</title>
+  <title>Deep Q-Network (DQN) | To be a legend</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -100,30 +100,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Git教程(三)：项目的分支</div>
+      <div class="post-title">Deep Q-Network (DQN)</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-          2020-09-23
+          2021-02-01
         </span>
         
-              <span class="post-categories">
-                <i class="iconfont icon-bookmark" title="类别 | categories"></i>
-                
-                <span class="span--category">
-                  <a href="/categories/Git/" title="查看 Git 分类">
-                    <b>#</b> Git
-                  </a>
-                </span>
-                
-              </span>
-          
               <span class="post-tags">
                 <i class="iconfont icon-tags" title="标签 | tags"></i>
                 
                 <span class="span--tag">
-                  <a href="/tags/Git/" title="查看 Git 标签">
-                    <b>#</b> Git
+                  <a href="/tags/Reinforcement-Learning/" title="查看 Reinforcement Learning 标签">
+                    <b>#</b> Reinforcement Learning
                   </a>
                 </span>
                 
@@ -131,62 +120,43 @@
           
       </div>
       <div class="markdown-body">
-        <h2 id="分支的概念"><a href="#分支的概念" class="headerlink" title="分支的概念"></a>分支的概念</h2><p>首先我们从人的角度来理解分支，分支就是一个项目的不同版本，即对于同一个项目，不同的人给项目添加不同的模块，那么每个人都会让项目产生一个不同的版本，即各种分支，如下图所示：</p>
-<p><img src="1.svg" alt=""></p>
-<p>中间绿线代表主分支的时间线，主分支通常为发行版本，橙色和蓝色分支分别是开发分支，例如张三和李四分别负责为A版本(发行版本)的项目添加一个新的模块，那么他们就会从主分支A结点分裂出两个分支，他们分别在各自的分支上开发，然后开发完毕后，在C结点合并到主分支，这时候C版本(发行版本)的项目就具备了张三和李四新开发的功能。</p>
-<h2 id="分支的工作原理"><a href="#分支的工作原理" class="headerlink" title="分支的工作原理*"></a>分支的工作原理*</h2><p>在之前的描述中，可能大家会认为，每创建一个分支，Git都会像上图那样，从主分支的时间线上分裂出一个新的分支时间线，可事实并非如此：Git从始至终只会存在一条时间线，而不同的分支只是以指针的形式存在，我们借助示意图来分析：</p>
-<ol>
-<li>最开始时间线上只有一个master分支，<strong>注意，时间线有且只有一条，并且时间线上每一个节点都代表一次提交(commit)</strong>。开始的时间上只涉及到两个指针，HEAD和master指针，其中HEAD指向当前分支，master指向提交。</li>
-</ol>
-<p><img src="2.svg" alt=""></p>
-<ol>
-<li>接着我们创建一个新的dev分支，这个时候，Git会创建一个dev指针，并使其直接指向当前提交节点，而我们又发现，当前提交节点不就是master指针指向的吗？所以Git会直接将master指针的值赋给dev指针，下一步，如果我们切换到dev分支，HEAD会指向dev(因为HEAD指针指向当前分支)。</li>
-</ol>
-<p><img src="3.svg" alt=""></p>
-<ol>
-<li>我们在dev分支上修改项目，并进行下一次提交，此时dev指针向前移动一步(因为分支指针指向提交)，又因为HEAD指针指向当前分支(dev)，所以HEAD指针也会跟着向前移动一步。</li>
-</ol>
-<p><img src="4.svg" alt=""></p>
-<ol>
-<li>如果需要将dev分支合并到主分支，只需要将master指针前移，即将dev指针的值赋给master，再切换到主分支，HEAD指针指向master。</li>
-</ol>
-<p><img src="5.svg" alt=""></p>
-<ol>
-<li>若要删除dev分支，只需要直接删除dev指针即可。</li>
-</ol>
-<h2 id="管理分支的命令"><a href="#管理分支的命令" class="headerlink" title="管理分支的命令"></a>管理分支的命令</h2><ol>
-<li>查看现有分支</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
-<ol>
-<li>创建分支</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名 &#x2F;&#x2F;建议英文，不需要加引号</span><br></pre></td></tr></table></figure>
-<ol>
-<li>切换分支</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure>
-<ol>
-<li>合并分支</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 分支名  &#x2F;&#x2F;会把指定分支合并到你当前所在的分支</span><br></pre></td></tr></table></figure>
-<ol>
-<li>删除分支</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d 分支名</span><br></pre></td></tr></table></figure>
-<h2 id="合并分支的冲突问题"><a href="#合并分支的冲突问题" class="headerlink" title="合并分支的冲突问题"></a>合并分支的冲突问题</h2><p>还记得上一篇文中提到的合并冲突问题吗？解决冲突问题需要我们手动操作，Git会指出在合并过程中发生冲突的部分，在命令行中会指出冲突文件，然后我们打开冲突文件内部，会发现Git同样标明了冲突的文本段，如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hello world！</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">111</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">222</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1</span><br></pre></td></tr></table></figure>
-<p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>，<code>=======</code>，<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>指出了发生冲突的部分，我们修改冲突文件，例如修改如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello world！</span><br><span class="line">111</span><br></pre></td></tr></table></figure>
-<p>保存文件，再手动提交：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 1.txt</span><br><span class="line">git commit -m &quot;conflict fixed&quot;</span><br></pre></td></tr></table></figure>
+        <p><a target="_blank" rel="noopener" href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf">Paper Link</a></p>
+<p>Deep Q-Network (DQN) can be regarded as the first algorithm which effectively combines reinforcement learning (RL) with deep learning (DL). Specifically, it address two main issues that hinder the combination of RL and DL: <strong>one is that in reinforcement learning an agent typically encounters sequences of highly correlated states; the other is that the learning target is constantly changed since the policy of agent is continuously updated.</strong></p>
+<h2 id="Experience-Replay"><a href="#Experience-Replay" class="headerlink" title="Experience Replay"></a>Experience Replay</h2><p>Most deep learning algorithms require the data samples to be independent while in reinforment learning the data used for training are usually successive transitions which have high correlation. To alleviate the problems of correlated data, <strong>DQN utilizes an experience replay mechanism which stores a mass of transitions and these transitions will be randomly sampled for training the neural network.</strong> This idea is quite simple but effectively breaks the correlation of training data. The process is illustrated in Figure 1.</p>
+<div style="width:70%;margin:auto">
+  <img src="/2021/02/01/Deep-Q-Network-DQN/1.png" class="" title="Figure 1">
+</div>
+
+<p>As shown in Figure 1, transitions $(s, r, s’)$ are stored in experience replay memory when the agent interacts with the environment and meanwhile a  random minibatch of experiences $(s, a, r, s’)$ are sampled from the memory for training the network.</p>
+<h2 id="Target-Network"><a href="#Target-Network" class="headerlink" title="Target Network"></a>Target Network</h2><p>The objective for training Q-Network (with weights $\theta$) is:</p>
+<script type="math/tex; mode=display">
+L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><p>where $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta}(s’, a’)$. Apparently, the target $y_i$ is constantly changed with the updating of the Q-Network, which makes the update unstable. To solve the non-stationarity of the targets, they use the old version of  Q-Network (with weights $\theta’$) to compute the targets , namely $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta’}(s’, a’)$ and copy $\theta$ to $\theta’$ periodically. This can make the targets stay constant for a long period of time.</p>
+<h2 id="Pseudocode-of-DQN"><a href="#Pseudocode-of-DQN" class="headerlink" title="Pseudocode of DQN"></a>Pseudocode of DQN</h2><p>With the two main ideas mentioned above, the pseudocode of DQN is shown below:</p>
+<hr>
+<p>&emsp;Initialize value network $Q_\theta$ with random weights</p>
+<p>&emsp;Copy $Q_\theta$ to create the target network $Q_{\theta’}$</p>
+<p>&emsp;Initialize experience replay memory $D$ of maximal size $N$</p>
+<p>&emsp;Observe the initial state $s_0$</p>
+<p>&emsp;for $t\in[0, T_{total}]$:</p>
+<p>&emsp;&emsp;&emsp;&emsp;With probability $\epsilon$ select a random action $a_t$ based on the behavior policy derived from $Q_\theta(s_t, a)$</p>
+<p>&emsp;&emsp;&emsp;&emsp;Execute action $a_t$ in emulator and observe reward $r_t$ and next state $s_{t+1}$</p>
+<p>&emsp;&emsp;&emsp;&emsp;Store $(s_t, a_t, r_t, s_{t+1})$ in $D$</p>
+<p>&emsp;&emsp;&emsp;&emsp;Every $T_{train}$ steps:</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sample a minibatch $D_s$ randomly form $D$</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;For each transition $(s, a, r, s’)$ in the minibatch:</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predict the Q-value of the greedy action in the next state $max_{a’}Q_{\theta’}(s’, a’)$ using the target network.</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Compute the target value $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta’}(s’, a’)$</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Train the value network $Q_{\theta}$ on $D_{s}$ to minimize $L(\theta)s = E_{D_s}[(y - Q_{\theta}(s, a, \theta))^2]$</p>
+<p>&emsp;&emsp;&emsp;&emsp;Every $T_{target}$ steps:</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Update the target network with the trained value network: $\theta’\leftarrow\theta$</p>
+<hr>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/09/15/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8E%E6%8B%89%E5%8F%96/" target="_self">
+              <a href="/2020/09/23/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>PREV</span>
               </a>
@@ -195,26 +165,15 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-              2020-09-23
+              2021-02-01
             </span>
             
-                  <span class="post-categories">
-                    <i class="iconfont icon-bookmark" title="类别 | categories"></i>
-                    
-                    <span class="span--category">
-                      <a href="/categories/Git/" title="查看 Git 分类">
-                        <b>#</b> Git
-                      </a>
-                    </span>
-                    
-                  </span>
-              
                   <span class="post-tags">
                     <i class="iconfont icon-tags" title="标签 | tags"></i>
                     
                     <span class="span--tag">
-                      <a href="/tags/Git/" title="查看 Git 标签">
-                        <b>#</b> Git
+                      <a href="/tags/Reinforcement-Learning/" title="查看 Reinforcement Learning 标签">
+                        <b>#</b> Reinforcement Learning
                       </a>
                     </span>
                     
@@ -222,11 +181,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2021/02/01/Deep-Q-Network-DQN/" target="_self">
-                <span>NEXT</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -236,7 +190,7 @@
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">分支的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">分支的工作原理*</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%88%86%E6%94%AF%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-text">管理分支的命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="toc-text">合并分支的冲突问题</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Experience-Replay"><span class="toc-text">Experience Replay</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-Network"><span class="toc-text">Target Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pseudocode-of-DQN"><span class="toc-text">Pseudocode of DQN</span></a></li></ol>
     </div>
   </div>
 

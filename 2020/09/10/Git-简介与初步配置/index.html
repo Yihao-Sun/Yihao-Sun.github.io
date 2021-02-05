@@ -132,9 +132,9 @@
       </div>
       <div class="markdown-body">
         <h2 id="Git简介"><a href="#Git简介" class="headerlink" title="Git简介"></a>Git简介</h2><p>Git 是目前世界上最先进的分布式版本控制系统(没有之一)，主要为了方便多人协同开发和版本控制。</p>
-<h3 id="Git的组成"><a href="#Git的组成" class="headerlink" title="Git的组成"></a>Git的组成</h3><p>GIt由<strong>本地仓库</strong>与<strong>远程仓库</strong>构成，其中本地仓库由<strong>工作区(workspace)**、</strong>暂存区(stage)<strong>和</strong>版本库(repository)**构成：工作区就是你项目文件夹下的各种文件，这是用户能直接进行添加、修改、删除的操作的地方；暂存区保存了下次将提交到仓库的文件信息列表，用来存储每天一小阶段的工作；版本库保存了你提交的所有版本的数据记录。版本库的内容可以是从本地工作区(从工作区添加到暂存区再到仓库区)提交的，也可以是从远程仓库中拉取下来的。</p>
+<h3 id="Git的组成"><a href="#Git的组成" class="headerlink" title="Git的组成"></a>Git的组成</h3><p>GIt由<strong>本地仓库</strong>与<strong>远程仓库</strong>构成，其中本地仓库由<strong>工作区(workspace)</strong>、<strong>暂存区(stage)</strong>和<strong>版本库(repository)</strong>构成：工作区就是你项目文件夹下的各种文件，这是用户能直接进行添加、修改、删除的操作的地方；暂存区保存了下次将提交到仓库的文件信息列表，用来存储每天一小阶段的工作；版本库保存了你提交的所有版本的数据记录。版本库的内容可以是从本地工作区(从工作区添加到暂存区再到仓库区)提交的，也可以是从远程仓库中拉取下来的。</p>
 <h3 id="Git的工作逻辑"><a href="#Git的工作逻辑" class="headerlink" title="Git的工作逻辑"></a>Git的工作逻辑</h3><p>其工作逻辑如下图所示：</p>
-<p><img src="1.png"></p>
+<p><img src="1.png" alt=""></p>
 <p>举个简单的例子，张三想要与他人合作完成一个项目，首先他需要在GitHub上创建一个项目仓库，然后将仓库clone到在自己的电脑上，于是本地就多了一个项目文件夹，这就是本地仓库，里面有若干文件(初始时应该只有一个README)和.git隐藏文件夹，若干文件构成了工作区，.git文件下就保存了该仓库的信息，包括暂存区(存储在index文件中)与版本库的信息；然后张三每次对于工作区文件的更改，都可以通过指令同步到本地仓库中(首先将更改添加(add)到暂存区，然后再提交(commit)到版本库)，接着张三就可以把本地仓库的内容同步(push)到远程仓库。同样的作为其他开发成员的李四也可以从远程仓库拉取(fetch/clone)项目到自己的本地仓库，李四也可以更改项目并上传远程仓库，这样就可以实现多人合作开发。</p>
 <h2 id="Git的初步配置"><a href="#Git的初步配置" class="headerlink" title="Git的初步配置"></a>Git的初步配置</h2><p>首先我们需要在本地安装Git工具，有了这个工具我们就可以执行Git的各种指令，如何安装可以自行Google/百度，然后我们需要一个远程仓库，通常选择GitHub，在GitHub上注册账号即可，然后我们需要<strong>配置ssh密钥</strong>来完成本机与远程仓库的互联。</p>
 <p>GitHub使用ssh认证，通俗来讲，就是你的本地要想向远程仓库上传或者从其拉取，需要一个认证，而这个认证就是ssh，ssh密钥由公钥和私钥组成，其中公钥要填写到GitHub网站上，私钥保存在本机上，具体操作为：</p>
@@ -142,26 +142,24 @@
 <li>在本机执行指令</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -C &quot;你的GitHub邮箱&quot;</span><br></pre></td></tr></table></figure>
-
 <p>这时会在你本机的主目录下生成一个.ssh的文件夹，里面存放了私钥和公钥，其中后缀为.pub为公钥。</p>
-<ol start="2">
+<ol>
 <li>复制公钥里面的内容到GitHub上(在Settings里的SSH and GPG keys选项，点击 New SSH key)</li>
 </ol>
-<p><img src="2.png"></p>
+<p><img src="2.png" alt=""></p>
 <p>填写好title和公钥即可</p>
-<ol start="3">
+<ol>
 <li>在GitHub上新建一个远程仓库(Your repositories里点击new)</li>
 </ol>
-<p><img src="3.png"></p>
+<p><img src="3.png" alt=""></p>
 <p>填写好信息(推荐勾选”Add a README file”)即可创建完成</p>
-<ol start="4">
+<ol>
 <li>将远程仓库拉取到本地</li>
 </ol>
 <p>点击新建好的仓库，然后复制仓库的URL地址</p>
-<p><img src="4.png"></p>
+<p><img src="4.png" alt=""></p>
 <p>在本机上输入指令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &quot;你的仓库URL&quot;</span><br></pre></td></tr></table></figure>
-
 <p>到此为止，我们就完成了远程仓库与本地仓库的初始化。</p>
 
       </div>
@@ -400,5 +398,22 @@
 
 
     </div>
-  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>

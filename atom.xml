@@ -6,7 +6,7 @@
   <link href="https://yihao-sun.github.io/atom.xml" rel="self"/>
   
   <link href="https://yihao-sun.github.io/"/>
-  <updated>2020-09-23T06:49:48.000Z</updated>
+  <updated>2021-02-01T09:42:12.000Z</updated>
   <id>https://yihao-sun.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Deep Q-Network (DQN)</title>
+    <link href="https://yihao-sun.github.io/2021/02/01/Deep-Q-Network-DQN/"/>
+    <id>https://yihao-sun.github.io/2021/02/01/Deep-Q-Network-DQN/</id>
+    <published>2021-02-01T09:42:12.000Z</published>
+    <updated>2021-02-01T09:42:12.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf&quot;&gt;Paper Link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Deep Q-Network (DQN) can be</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Reinforcement Learning" scheme="https://yihao-sun.github.io/tags/Reinforcement-Learning/"/>
+    
+  </entry>
   
   <entry>
     <title>Git教程(三)：项目的分支</title>
@@ -158,8 +182,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;绘制线条&quot;&gt;&lt;a href=&quot;#绘制线条&quot; class=&quot;headerlink&quot; title=&quot;绘制线条&quot;&gt;&lt;/a&gt;绘制线条&lt;/h2&gt;&lt;p&gt;最基本的绘图为线条的绘制，调用plt.plot方法即可&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
+    <summary type="html">&lt;h2 id=&quot;绘制线条&quot;&gt;&lt;a href=&quot;#绘制线条&quot; class=&quot;headerlink&quot; title=&quot;绘制线条&quot;&gt;&lt;/a&gt;绘制线条&lt;/h2&gt;&lt;p&gt;最基本的绘图为线条的绘制，调用plt.plot方法即可&lt;br&gt;&lt;figure class=&quot;highlight</summary>
         
       
     
