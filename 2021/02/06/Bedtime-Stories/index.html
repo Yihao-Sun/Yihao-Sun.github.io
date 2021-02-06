@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>Deep Q-Network (DQN) | To be a legend</title>
+  <title>Bedtime Stories | To be a legend</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -100,63 +100,56 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Deep Q-Network (DQN)</div>
+      <div class="post-title">Bedtime Stories</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-          2021-02-01
+          2021-02-06
         </span>
         
-              <span class="post-tags">
-                <i class="iconfont icon-tags" title="标签 | tags"></i>
-                
-                <span class="span--tag">
-                  <a href="/tags/Reinforcement-Learning/" title="查看 Reinforcement Learning 标签">
-                    <b>#</b> Reinforcement Learning
-                  </a>
-                </span>
-                
-              </span>
-          
       </div>
       <div class="markdown-body">
-        <p><a target="_blank" rel="noopener" href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf">Paper Link</a></p>
-<p>Deep Q-Network (DQN) can be regarded as the first algorithm which effectively combines reinforcement learning (RL) with deep learning (DL). Specifically, it address two main issues that hinder the combination of RL and DL: <strong>one is that in reinforcement learning an agent typically encounters sequences of highly correlated states; the other is that the learning target is constantly changed since the policy of agent is continuously updated.</strong></p>
-<h2 id="Experience-Replay"><a href="#Experience-Replay" class="headerlink" title="Experience Replay"></a>Experience Replay</h2><p>Most deep learning algorithms require the data samples to be independent while in reinforment learning the data used for training are usually successive transitions which have high correlation. To alleviate the problems of correlated data, <strong>DQN utilizes an experience replay mechanism which stores a mass of transitions and these transitions will be randomly sampled for training the neural network.</strong> This idea is quite simple but effectively breaks the correlation of training data. The process is illustrated in Figure 1.</p>
-<div style="width:70%;margin:auto">
-  <img src="/2021/02/01/Deep-Q-Network-DQN/1.png" class="" title="Figure 1">
-</div>
-
-<p>As shown in Figure 1, transitions $(s, r, s’)$ are stored in experience replay memory when the agent interacts with the environment and meanwhile a  random minibatch of experiences $(s, a, r, s’)$ are sampled from the memory for training the network.</p>
-<h2 id="Target-Network"><a href="#Target-Network" class="headerlink" title="Target Network"></a>Target Network</h2><p>The objective for training Q-Network (with weights $\theta$) is:</p>
-<script type="math/tex; mode=display">
-L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><p>where $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta}(s’, a’)$. Apparently, the target $y_i$ is constantly changed with the updating of the Q-Network, which makes the update unstable. To solve the non-stationarity of the targets, they use the old version of  Q-Network (with weights $\theta’$) to compute the targets , namely $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta’}(s’, a’)$ and copy $\theta$ to $\theta’$ periodically. This can make the targets stay constant for a long period of time.</p>
-<h2 id="Pseudocode-of-DQN"><a href="#Pseudocode-of-DQN" class="headerlink" title="Pseudocode of DQN"></a>Pseudocode of DQN</h2><p>With the two main ideas mentioned above, the pseudocode of DQN is shown below:</p>
-<hr>
-<p>&emsp;Initialize value network $Q_\theta$ with random weights</p>
-<p>&emsp;Copy $Q_\theta$ to create the target network $Q_{\theta’}$</p>
-<p>&emsp;Initialize experience replay memory $D$ of maximal size $N$</p>
-<p>&emsp;Observe the initial state $s_0$</p>
-<p>&emsp;for $t\in[0, T_{total}]$:</p>
-<p>&emsp;&emsp;&emsp;&emsp;With probability $\epsilon$ select a random action $a_t$ based on the behavior policy derived from $Q_\theta(s_t, a)$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Execute action $a_t$ in emulator and observe reward $r_t$ and next state $s_{t+1}$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Store $(s_t, a_t, r_t, s_{t+1})$ in $D$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Every $T_{train}$ steps:</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sample a minibatch $D_s$ randomly form $D$</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;For each transition $(s, a, r, s’)$ in the minibatch:</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predict the Q-value of the greedy action in the next state $max_{a’}Q_{\theta’}(s’, a’)$ using the target network.</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Compute the target value $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta’}(s’, a’)$</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Train the value network $Q_{\theta}$ on $D_{s}$ to minimize $L(\theta)s = E_{D_s}[(y - Q_{\theta}(s, a, \theta))^2]$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Every $T_{target}$ steps:</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Update the target network with the trained value network: $\theta’\leftarrow\theta$</p>
-<hr>
+        <h3 id="2021-1-24"><a href="#2021-1-24" class="headerlink" title="2021.1.24"></a>2021.1.24</h3><p>From 笛笛:</p>
+<p>有一块玻璃跳楼了</p>
+<p>它说  我碎了</p>
+<h3 id="2021-1-27"><a href="#2021-1-27" class="headerlink" title="2021.1.27"></a>2021.1.27</h3><p>From 笛笛：</p>
+<p>有一只小兔子，她开了一个烧烤摊，有一天有一只小熊来了，他说他想吃烤柿子，小兔子从来没做过烤柿子呀，她有点蒙，然后他就拿了一串柿子在烤炉里面考，烤到一半柿子有点焦了，小熊看到了很着急，大声的喊：“烤柿加油呀！”</p>
+<h3 id="2021-1-29"><a href="#2021-1-29" class="headerlink" title="2021.1.29"></a>2021.1.29</h3><p>From 笛笛：</p>
+<p>案板上放着一盘水饺🥟   圆滚滚白胖胖  但是还有一个面团  与大家格格不入  它是长着小刺猬身体的小饺子🥟   因为馅太少了  所以主人包了个厚厚的皮  但是其他水饺都跳下锅了  它还是不敢  它说我的刺太硬了  会扎破别的水饺   但是主人和它说  你去试试  会有惊喜  它鼓起勇气跳了进去  惊奇的发现自己的刺变软了  原来不是因为自己草木皆兵  竖起保护自己的尖刺  只是因为它还没遇到适合自己的东西  比如  这锅热水</p>
+<h3 id="2021-1-31"><a href="#2021-1-31" class="headerlink" title="2021.1.31"></a>2021.1.31</h3><p>From 笛笛（语音49‘）：</p>
+<p>从前森林里有一只不爱吃巧克力的小兔子，可是他有一个特别爱吃巧克力的熊熊朋友，那一天熊熊要过生日了，小兔子想送给她一座巧克力小屋，所以他就用巧克力当作专候吧，盖了一个有熊熊那么高的小城堡，外面还刷了一层亮晶晶的糖水，在阳光下照着不灵不灵的，然后小熊熊他就把小棕熊叫了过来，熊熊特别开心，小兔子也很开心，因为她知道送礼物不是送自己喜欢的，而是想送给对方对方最喜欢的。</p>
+<h3 id="2021-2-2"><a href="#2021-2-2" class="headerlink" title="2021.2.2"></a>2021.2.2</h3><p>From 笛笛（语音56’）:</p>
+<p>小兔子的院子里种了一大片胡萝卜，他都想好了，等到都成熟的时候，他要把其中最大的那一刻给小熊，每当想到这儿，小兔仔就心里偷偷的开心，有一天，他去小熊家里找小熊玩，她发现小熊的园子里种了一大片草莓，小兔子最喜欢吃草莓了，他想摘一口，吃的时候至少别动，小熊出来跟他说，小兔子说不吃就不吃吗？然后就很委屈很生气的跑回家了，后来有一天小兔子出门的时候，小熊提着一个箩筐站在门口等他，里面装了满满的草莓，小兔子翻了个白眼说，你不是不让我吃吗？然后小熊说没有，只是那个时候还没有成熟，因为我想把最甜的再给你。</p>
+<h3 id="2021-2-3"><a href="#2021-2-3" class="headerlink" title="2021.2.3"></a>2021.2.3</h3><p>From 少爷:</p>
+<p>“吃下一小勺冰淇淋，你就会变成我这样的小猪哦。”小猪扬起蹄子警告大灰狼。</p>
+<p>“像你这样的笨小猪才会信你的话呢！不过是冰淇淋而已，哪有这么神奇。”大灰狼按住小猪的蹄子，吃下了一小勺冰淇淋。</p>
+<p>咚咚咚哒！大灰狼变成了一只长着黑宝石眼睛，扇着大大的耳朵，摇着弯弯的尾巴的小猪。</p>
+<p>“啊啊啊啊，我怎么变成小猪了！”小灰猪发出“哼唧哼唧”的惊讶声。</p>
+<p>“因为，因为这个冰淇淋是我做的，我给它下了‘吃了它的人就要陪我一辈子’的魔法哦。”小猪哼唧哼唧地笑道。</p>
+<h3 id="2021-2-4"><a href="#2021-2-4" class="headerlink" title="2021.2.4"></a>2021.2.4</h3><p>From 笛笛：</p>
+<p>麻花准备向豆包表白，“那个…你真胖。”</p>
+<p>豆包不太乐意，“哦。”</p>
+<p>麻花搓了搓手，又说，“你…你又白…又白又胖…”</p>
+<p>豆包瞪了他一眼“我知道！”</p>
+<p>麻花有点紧张，他闭着眼睛深吸了一口气，“我想说…”</p>
+<p>豆包抢话到“你瘦！就你瘦！”</p>
+<p>麻花挠挠头，小声说“我想说，你一定很好抱…”</p>
+<h3 id="2021-2-5"><a href="#2021-2-5" class="headerlink" title="2021.2.5"></a>2021.2.5</h3><p>From 少爷：</p>
+<p>西瓜和草莓谈恋爱了</p>
+<p>可是草莓觉得西瓜好花心呀，</p>
+<p>他有南瓜，冬瓜，白瓜很多好朋友，</p>
+<p>草莓觉得自己好可怜。</p>
+<p>她对西瓜说:“我们不要在一起好啦，你太花心了。”</p>
+<p>西瓜觉得自己好委屈好委屈呀。</p>
+<p>他在草莓面前一刀把自己切成两半</p>
+<p>“你看嘛，你看嘛，人家一点都不花心，我心里全都是你啦。”</p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/09/23/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF/" target="_self">
+              <a href="/2021/02/01/Deep-Q-Network-DQN/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>PREV</span>
               </a>
@@ -165,27 +158,11 @@ L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-              2021-02-01
+              2021-02-06
             </span>
             
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags" title="标签 | tags"></i>
-                    
-                    <span class="span--tag">
-                      <a href="/tags/Reinforcement-Learning/" title="查看 Reinforcement Learning 标签">
-                        <b>#</b> Reinforcement Learning
-                      </a>
-                    </span>
-                    
-                  </span>
-              
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2021/02/06/Bedtime-Stories/" target="_self">
-                <span>NEXT</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -195,7 +172,7 @@ L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Experience-Replay"><span class="toc-text">Experience Replay</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-Network"><span class="toc-text">Target Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pseudocode-of-DQN"><span class="toc-text">Pseudocode of DQN</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-1-24"><span class="toc-text">2021.1.24</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-1-27"><span class="toc-text">2021.1.27</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-1-29"><span class="toc-text">2021.1.29</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-1-31"><span class="toc-text">2021.1.31</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-2-2"><span class="toc-text">2021.2.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-2-3"><span class="toc-text">2021.2.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-2-4"><span class="toc-text">2021.2.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-2-5"><span class="toc-text">2021.2.5</span></a></li></ol>
     </div>
   </div>
 
