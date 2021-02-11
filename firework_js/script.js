@@ -1,6 +1,6 @@
 var gc = new GameCanvas();
 
-var points = textToPoints("2 0 2 1", 40, "Anton");
+var points = textToPoints("笛 笛 新 年 快 乐", 40, "Anton");
 
 
 var titleParticles = [];
@@ -15,9 +15,9 @@ setTimeout(function() {
   }, 200);
 }, 2000);
 
-fireworks.push(new Firework(width / 2, height, 0, -9.5, 10, "gold", true));
+fireworks.push(new Firework(width / 2, height, -5, -9.5, 10, "gold", true));
 setInterval(function() {
-  fireworks.push(new Firework(width / 2, height, 0, -9.5, 10, "gold", true));
+  fireworks.push(new Firework(width / 2, height, -5, -9.5, 10, "gold", true));
 }, 5000);
 
 for (var i = 0; i < 250; i++) {
