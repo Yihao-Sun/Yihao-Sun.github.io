@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   
-  <title>Deep Q-Network (DQN) | To be a legend</title>
+  <title>Deterministic Policy Gradient (DPG) | To be a legend</title>
 
   
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -100,11 +100,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Deep Q-Network (DQN)</div>
+      <div class="post-title">Deterministic Policy Gradient (DPG)</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-          2021-02-01
+          2021-02-15
         </span>
         
               <span class="post-tags">
@@ -120,43 +120,39 @@
           
       </div>
       <div class="markdown-body">
-        <p><a target="_blank" rel="noopener" href="https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf">Paper Link</a></p>
-<p>Deep Q-Network (DQN) can be regarded as the first algorithm which effectively combines reinforcement learning (RL) with deep learning (DL). Specifically, it address two main issues that hinder the combination of RL and DL: <strong>one is that in reinforcement learning an agent typically encounters sequences of highly correlated states; the other is that the learning target is constantly changed since the policy of agent is continuously updated.</strong></p>
-<h2 id="Experience-Replay"><a href="#Experience-Replay" class="headerlink" title="Experience Replay"></a>Experience Replay</h2><p>Most deep learning algorithms require the data samples to be independent while in reinforment learning the data used for training are usually successive transitions which have high correlation. To alleviate the problems of correlated data, <strong>DQN utilizes an experience replay mechanism which stores a mass of transitions and these transitions will be randomly sampled for training the neural network.</strong> This idea is quite simple but effectively breaks the correlation of training data. The process is illustrated in Figure 1.</p>
-<div style="width:70%;margin:auto">
-  <img src="/2021/02/01/Deep-Q-Network-DQN/1.png" class="" title="Figure 1">
-</div>
-
-<p>As shown in Figure 1, transitions $(s, r, s’)$ are stored in experience replay memory when the agent interacts with the environment and meanwhile a  random minibatch of experiences $(s, a, r, s’)$ are sampled from the memory for training the network.</p>
-<h2 id="Target-Network"><a href="#Target-Network" class="headerlink" title="Target Network"></a>Target Network</h2><p>The objective for training Q-Network (with weights $\theta$) is:</p>
+        <p><a href="">Paper Link</a></p>
+<p>Deterministic Policy Gradient (DPG) is a special policy gradient method which can solve the tasks with deterministic policies.  DPG has an appealing form : it is the expected gradient of the action-value function. This simple form means that the deterministic gradient can be estimated much more efficiently than the usual stochastic policy gradient.</p>
+<h3 id="Stochastic-Actor-Critic-Algorithms"><a href="#Stochastic-Actor-Critic-Algorithms" class="headerlink" title="Stochastic Actor-Critic Algorithms"></a>Stochastic Actor-Critic Algorithms</h3><p>We first review traditional stochastic actor-critic algorithms, including on-policy actor-critic and off-policy actor-critic.</p>
+<h4 id="On-Policy-Actor-Critic"><a href="#On-Policy-Actor-Critic" class="headerlink" title="On-Policy Actor-Critic"></a>On-Policy Actor-Critic</h4><p>According to the policy gradient theorem, we can compute the gradient of the current policy $\pi_\theta$ as follows:</p>
 <script type="math/tex; mode=display">
-L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><p>where $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta}(s’, a’)$. Apparently, the target $y_i$ is constantly changed with the updating of the Q-Network, which makes the update unstable. To solve the non-stationarity of the targets, they use the old version of  Q-Network (with weights $\theta’$) to compute the targets , namely $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta’}(s’, a’)$ and copy $\theta$ to $\theta’$ periodically. This can make the targets stay constant for a long period of time.</p>
-<h2 id="Pseudocode-of-DQN"><a href="#Pseudocode-of-DQN" class="headerlink" title="Pseudocode of DQN"></a>Pseudocode of DQN</h2><p>With the two main ideas mentioned above, the pseudocode of DQN is shown below:</p>
-<hr>
-<p>&emsp;Initialize value network $Q_\theta$ with random weights</p>
-<p>&emsp;Copy $Q_\theta$ to create the target network $Q_{\theta’}$</p>
-<p>&emsp;Initialize experience replay memory $D$ of maximal size $N$</p>
-<p>&emsp;Observe the initial state $s_0$</p>
-<p>&emsp;for $t\in[0, T_{total}]$:</p>
-<p>&emsp;&emsp;&emsp;&emsp;With probability $\epsilon$ select a random action $a_t$ based on the behavior policy derived from $Q_\theta(s_t, a)$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Execute action $a_t$ in emulator and observe reward $r_t$ and next state $s_{t+1}$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Store $(s_t, a_t, r_t, s_{t+1})$ in $D$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Every $T_{train}$ steps:</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sample a minibatch $D_s$ randomly form $D$</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;For each transition $(s, a, r, s’)$ in the minibatch:</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Predict the Q-value of the greedy action in the next state $max_{a’}Q_{\theta’}(s’, a’)$ using the target network.</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Compute the target value $y = r(s, a, s’) + \gamma max_{a’}Q_{\theta’}(s’, a’)$</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Train the value network $Q_{\theta}$ on $D_{s}$ to minimize $L(\theta)s = E_{D_s}[(y - Q_{\theta}(s, a, \theta))^2]$</p>
-<p>&emsp;&emsp;&emsp;&emsp;Every $T_{target}$ steps:</p>
-<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Update the target network with the trained value network: $\theta’\leftarrow\theta$</p>
-<hr>
+\bigtriangledown_{\theta}J(\pi_{\theta}) = E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[\bigtriangledown_{\theta}log\pi_{\theta}(a|s)Q^{\omega}(s, a)\right].\tag{1}</script><p>This equation consists of two estimator:  policy estimator $\pi_{\theta}$ and action-value estimator $Q^{\omega}$. The policy estimator is referred to as actor and the update of its parameters follow $\bigtriangledown_{\theta}J(\pi_{\theta})$, while the action-value estimator is  referred as critic and the update of its parameters follow $\bigtriangledown_{\omega} E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[(Q^{\omega}(s,a) - Q^{\pi}(s,a)^2)\right]$, where $Q^{\pi}$ is the true action-value. In contrast to using $Q^{\pi}$, using $Q^{\omega}$ may introduce bias but can reduce deviation effectively.</p>
+<h4 id="Off-Policy-Actor-Critic"><a href="#Off-Policy-Actor-Critic" class="headerlink" title="Off-Policy Actor-Critic"></a>Off-Policy Actor-Critic</h4><p>In an off-policy setting, we can easily train the critic by using the temporal-difference error, however some modification is required for the estimation of the policy gradient.</p>
+<p>The performance objective is modified to be the value function of the target policy $\pi$, averaged over the state distribution of the behavior policy $\beta$:</p>
+<script type="math/tex; mode=display">\begin{align*}J_{\beta}(\pi_{\theta}) & = \int_{S} \rho^{\beta}(s)V^{\pi}(s)ds\\ & = \int_{S}\int_{A} \rho^{\beta}(s)\pi_{\theta}(a|s)Q^{\pi}(s,a)dads.\end{align*}\tag{2}</script><p>Differentiating above objective and applying an approximation gives the off-policy-gradient:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\bigtriangledown_{\theta}J_{\beta}(\pi_{\theta})
+& \approx
+\int_{S}\int_{A} \rho^{\beta}(s)\bigtriangledown_{\theta}
+\pi_{\theta}(a|s)Q^{\pi}(s,a)dads
+\\
+& =
+E_{s \sim \rho^{\beta}, a \sim \beta}
+\left[
+\frac{\pi_{\theta}(a|s)}{\beta_{\theta}(a|s)}
+\bigtriangledown_{\theta}
+log\pi_{\theta}(a|s)
+Q^{\pi}(s,a)
+\right]
+\end{align*}
+\tag{3}</script><p>Though the approximation drops a term that depends on the action-value gradient $\bigtriangledown_{\theta}Q^{\pi}(s,a)$, it is a good approximation since it can preserve the set of local optima to which gradient ascent converges. Note that the true action-value is unknown so we must use an estimator $V^v$ to approximate $V^{\pi}$and use the temporal-difference $r(s,a) + \gamma V^{v}(s’)$ to approximate $Q^{\pi}(s,a)$.</p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/09/23/Git-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%86%E6%94%AF/" target="_self">
+              <a href="/2021/02/01/Deep-Q-Network-DQN/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>PREV</span>
               </a>
@@ -165,7 +161,7 @@ L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
-              2021-02-01
+              2021-02-15
             </span>
             
                   <span class="post-tags">
@@ -182,7 +178,7 @@ L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2021/02/15/Deterministic-Policy-Gradient-DPG/" target="_self">
+              <a href="/2021/02/28/NumPy%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/" target="_self">
                 <span>NEXT</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -195,7 +191,7 @@ L(\theta) = E_{s, a\sim\rho(\cdot)}[(y - Q_{\theta}(s, a, \theta))^2],</script><
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Experience-Replay"><span class="toc-text">Experience Replay</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-Network"><span class="toc-text">Target Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pseudocode-of-DQN"><span class="toc-text">Pseudocode of DQN</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic-Actor-Critic-Algorithms"><span class="toc-text">Stochastic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#On-Policy-Actor-Critic"><span class="toc-text">On-Policy Actor-Critic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Off-Policy-Actor-Critic"><span class="toc-text">Off-Policy Actor-Critic</span></a></li></ol></li></ol>
     </div>
   </div>
 
