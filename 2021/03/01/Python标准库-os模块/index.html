@@ -196,7 +196,7 @@
 <p>这里的’./data.txt’便是相对路径，<strong>‘.’代表是启程程序的命令执行时所在的目录</strong>，具体来说，如果在dir下直接执行python test2.py，‘.’就代表了’/Users/yihaosun/path_project/dir’；如果我们在test1.py里面import read_data函数并调用，再在path_project下执行python test1.py，此时’.’则表示‘/Users/yihaosun/path_project’；或者我们在path_project路径下，执行python dir/test2.py，那么’.’表示的也是‘/Users/yihaosun/path_project’。</p>
 <p>所以我们在dir下执行python test2.py，会成功读取到data.txt，而如果在path_projet下执行python test1.py，则会报错，因为在path_project目录下没有data.txt，在path_project下执行python dir/test2.py同样也会报错，下面开始验证：</p>
 <p>dir路径下运行test2.py：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yihaosun @ YihaodeMacBook-Pro <span class="keyword">in</span> ~/path_project/dir [14:50:23]</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python test2.py</span></span><br><span class="line">111</span><br><span class="line">222</span><br><span class="line">333</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yihaosun @ YihaodeMacBook-Pro <span class="keyword">in</span> ~/path_project/dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python test2.py</span></span><br><span class="line">111</span><br><span class="line">222</span><br><span class="line">333</span><br></pre></td></tr></table></figure>
 <p>编写test1.py：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dir.test2 <span class="keyword">import</span> read_data</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	read_data()</span><br></pre></td></tr></table></figure>
 <p>path_project下分别运行test1.py和test2.py:</p>
@@ -425,5 +425,22 @@
 
 
     </div>
-  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>
