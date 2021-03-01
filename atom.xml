@@ -6,7 +6,7 @@
   <link href="https://yihao-sun.github.io/atom.xml" rel="self"/>
   
   <link href="https://yihao-sun.github.io/"/>
-  <updated>2021-02-28T01:05:13.000Z</updated>
+  <updated>2021-03-01T05:39:36.000Z</updated>
   <id>https://yihao-sun.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python标准库-os模块</title>
+    <link href="https://yihao-sun.github.io/2021/03/01/Python%E6%A0%87%E5%87%86%E5%BA%93-os%E6%A8%A1%E5%9D%97/"/>
+    <id>https://yihao-sun.github.io/2021/03/01/Python%E6%A0%87%E5%87%86%E5%BA%93-os%E6%A8%A1%E5%9D%97/</id>
+    <published>2021-03-01T05:39:36.000Z</published>
+    <updated>2021-03-01T05:39:36.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Python标准库中的os模块，提供了许多与操作系统相关联的函数，其中最常用的就是对文件的操作：&lt;/p&gt;
+&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th</summary>
+        
+      
+    
+    
+    
+    <category term="python常用库" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/"/>
+    
+    
+    <category term="os" scheme="https://yihao-sun.github.io/tags/os/"/>
+    
+  </entry>
   
   <entry>
     <title>NumPy简易教程</title>
@@ -35,8 +65,6 @@
     
     
     <category term="python常用库" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/"/>
-    
-    <category term="NumPy" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/NumPy/"/>
     
     
     <category term="NumPy" scheme="https://yihao-sun.github.io/tags/NumPy/"/>
@@ -187,8 +215,6 @@
     
     <category term="python常用库" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/"/>
     
-    <category term="Matplotlib" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/"/>
-    
     
     <category term="Matplotlib" scheme="https://yihao-sun.github.io/tags/Matplotlib/"/>
     
@@ -213,8 +239,6 @@
     
     
     <category term="python常用库" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/"/>
-    
-    <category term="Matplotlib" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/"/>
     
     
     <category term="Matplotlib" scheme="https://yihao-sun.github.io/tags/Matplotlib/"/>
@@ -241,8 +265,6 @@
     
     <category term="python常用库" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/"/>
     
-    <category term="Matplotlib" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/"/>
-    
     
     <category term="Matplotlib" scheme="https://yihao-sun.github.io/tags/Matplotlib/"/>
     
@@ -267,8 +289,6 @@
     
     
     <category term="python常用库" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/"/>
-    
-    <category term="Matplotlib" scheme="https://yihao-sun.github.io/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/Matplotlib/"/>
     
     
     <category term="Matplotlib" scheme="https://yihao-sun.github.io/tags/Matplotlib/"/>

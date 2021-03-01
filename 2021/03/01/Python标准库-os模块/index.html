@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="author" content="zchengsite, 1451426471@qq.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  <title>Python标准库-os模块 | To be a legend</title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="To be a legend" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/"><img src="/images/avatar.png" alt=""></a>
+    <div class="nickname"><a href="/">To be a legend</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tools/">
+          <a href="/tools/">实用工具</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Python标准库-os模块</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+          2021-03-01
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="类别 | categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/" title="查看 python常用库 分类">
+                    <b>#</b> python常用库
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签 | tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/os/" title="查看 os 标签">
+                    <b>#</b> os
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>Python标准库中的os模块，提供了许多与操作系统相关联的函数，其中最常用的就是对文件的操作：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">os.getcwd()</td>
+<td>获取当前python脚本的工作目录路径</td>
+</tr>
+<tr>
+<td style="text-align:left">os.mkdir(‘dirname’)</td>
+<td>生成单级目录</td>
+</tr>
+<tr>
+<td style="text-align:left">os.makedirs(‘dirname1/dirname2’)</td>
+<td>生成多层递归目录</td>
+</tr>
+<tr>
+<td style="text-align:left">os.listdir(‘dirname’)</td>
+<td>列出指定目录下所有的文件和子目录</td>
+</tr>
+<tr>
+<td style="text-align:left">os.dirname(path)</td>
+<td>返回path的目录</td>
+</tr>
+<tr>
+<td style="text-align:left">os.basename(path)</td>
+<td>返回path最后的文件名</td>
+</tr>
+<tr>
+<td style="text-align:left">os.path.exists(path)</td>
+<td>若path存在，返回True，否则返回False</td>
+</tr>
+<tr>
+<td style="text-align:left">os.path.isfile(path)</td>
+<td>若path是一个存在的文件，返回True，否则返回False</td>
+</tr>
+<tr>
+<td style="text-align:left">os.path.isdir(path)</td>
+<td>若path是一个存在的目录，返回True，否则返回False</td>
+</tr>
+<tr>
+<td style="text-align:left">os.path.join(path1[, path2[, …]])</td>
+<td>将多个路径组合后返回，第一个绝对路径之前的参数将被忽略</td>
+</tr>
+<tr>
+<td style="text-align:left">os.path.abspath(path)</td>
+<td>返回path规范化的绝对路径</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这里我们提供一个具体的示例，该示例不仅展示了os模块的用法，也涉及到了绝对路径，相对路径，工作路径的概念。</p>
+<p>先简单介绍一下绝对路径与相对路径的区别，绝对路径是从磁盘根目录开始的完整路径，而相对路径是相对于某个文件目录的路径，为了形象解释，我们创建以下结构的项目文件夹：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">path_project</span><br><span class="line">├── dir</span><br><span class="line">│   ├── data.txt</span><br><span class="line">│   └── test2.py</span><br><span class="line">└── test1.py</span><br></pre></td></tr></table></figure>
+<p>其中path_project的绝对路径为：’/Users/yihaosun/path_project’，在test2.py定义了一个读取data.txt的函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_data</span>():</span></span><br><span class="line">	<span class="keyword">with</span> open(<span class="string">&#x27;./data.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">		print(f.read())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	read_data()</span><br></pre></td></tr></table></figure>
+<p>这里的’./data.txt’便是相对路径，<strong>‘.’代表是启程程序的命令执行时所在的目录</strong>，具体来说，如果在dir下直接执行python test2.py，‘.’就代表了’/Users/yihaosun/path_project/dir’；如果我们在test1.py里面import read_data函数并调用，再在path_project下执行python test1.py，此时’.’则表示‘/Users/yihaosun/path_project’；或者我们在path_project路径下，执行python dir/test2.py，那么’.’表示的也是‘/Users/yihaosun/path_project’。</p>
+<p>所以我们在dir下执行python test2.py，会成功读取到data.txt，而如果在path_projet下执行python test1.py，则会报错，因为在path_project目录下没有data.txt，在path_project下执行python dir/test2.py同样也会报错，下面开始验证：</p>
+<p>dir路径下运行test2.py：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yihaosun @ YihaodeMacBook-Pro <span class="keyword">in</span> ~/path_project/dir [14:50:23]</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python test2.py</span></span><br><span class="line">111</span><br><span class="line">222</span><br><span class="line">333</span><br></pre></td></tr></table></figure>
+<p>编写test1.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dir.test2 <span class="keyword">import</span> read_data</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	read_data()</span><br></pre></td></tr></table></figure>
+<p>path_project下分别运行test1.py和test2.py:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yihaosun @ YihaodeMacBook-Pro <span class="keyword">in</span> ~/path_project</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python test1.py</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;test1.py&quot;, line 4, in &lt;module&gt;</span><br><span class="line">    read_data()</span><br><span class="line">  File &quot;/Users/yihaosun/path_project/dir/test2.py&quot;, line 2, in read_data</span><br><span class="line">    with open(&#x27;./data.txt&#x27;) as f:</span><br><span class="line">FileNotFoundError: [Errno 2] No such file or directory: &#x27;./data.txt&#x27;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> yihaosun @ YihaodeMacBook-Pro <span class="keyword">in</span> ~/path_project</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python dir/test2.py</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;dir/test2.py&quot;, line 6, in &lt;module&gt;</span><br><span class="line">    read_data()</span><br><span class="line">  File &quot;dir/test2.py&quot;, line 2, in read_data</span><br><span class="line">    with open(&#x27;./data.txt&#x27;) as f:</span><br><span class="line">FileNotFoundError: [Errno 2] No such file or directory: &#x27;./data.txt&#x27;</span><br></pre></td></tr></table></figure>
+<p>实验结果印证了我们的想法，如果想解决上述问题，让test1.py和test2.py再各种路径下都能成功运行，我们需要在read_data里面定义data.txt的绝对路径，对test2.py修改如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_data</span>():</span></span><br><span class="line">	file_path = os.path.abspath(__file__)  <span class="comment"># 先通过abspath方法获取当前脚本的绝对路径，__file__表示定义这个函数的文件（test2.py）的绝对路径</span></span><br><span class="line">	print(file_path)</span><br><span class="line">	file_path = os.path.dirname(file_path)  <span class="comment"># 获取当前路径的目录</span></span><br><span class="line">	<span class="keyword">with</span> open(os.path.join(file_path, <span class="string">&#x27;data.txt&#x27;</span>)) <span class="keyword">as</span> f:</span><br><span class="line">		print(f.read())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	read_data()</span><br></pre></td></tr></table></figure>
+<p>再次在path_project下运行test1.py和test2.py:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yihaosun @ YihaodeMacBook-Pro <span class="keyword">in</span> ~/path_project</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python test1.py</span></span><br><span class="line">/Users/yihaosun/path_project/dir/test2.py</span><br><span class="line">111</span><br><span class="line">222</span><br><span class="line">333</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> yihaosun @ YihaodeMacBook-Pro <span class="keyword">in</span> ~/path_project</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python dir/test2.py</span></span><br><span class="line">/Users/yihaosun/path_project/dir/test2.py</span><br><span class="line">111</span><br><span class="line">222</span><br><span class="line">333</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/02/28/NumPy%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>PREV</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+              2021-03-01
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="类别 | categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/python%E5%B8%B8%E7%94%A8%E5%BA%93/" title="查看 python常用库 分类">
+                        <b>#</b> python常用库
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签 | tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/os/" title="查看 os 标签">
+                        <b>#</b> os
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+
+    
+      <div class="comments-container">
+        
+
+
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <div id="vcomments"></div>
+
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'xCrix3xuQasVLFiY1a1PUTbd-gzGzoHsz',
+      appKey: 'bCzXzANH4S53Q03rRywgXAGf',
+      placeholder: 'Welcome!',
+      avatar: 'retro'
+    })
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/Yihao-Sun">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微信" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微博" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <a href="">Copyright © Yihao Sun 2020</a>
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile();
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+  </script>
+
+  
+<script src="/js/search.js"></script>
+
+
+
+
+    </div>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
