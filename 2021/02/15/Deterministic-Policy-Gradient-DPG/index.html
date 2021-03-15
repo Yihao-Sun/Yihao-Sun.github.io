@@ -125,7 +125,7 @@
 <h2 id="1-Stochastic-Actor-Critic-Algorithms"><a href="#1-Stochastic-Actor-Critic-Algorithms" class="headerlink" title="1 Stochastic Actor-Critic Algorithms"></a>1 Stochastic Actor-Critic Algorithms</h2><p>We first review traditional stochastic actor-critic algorithms, including on-policy actor-critic and off-policy actor-critic.</p>
 <h4 id="On-Policy-Actor-Critic"><a href="#On-Policy-Actor-Critic" class="headerlink" title="On-Policy Actor-Critic"></a>On-Policy Actor-Critic</h4><p>According to the policy gradient theorem, we can compute the gradient of the current policy $\pi_\theta$ as follows:</p>
 <script type="math/tex; mode=display">
-\bigtriangledown_{\theta}J(\pi_{\theta}) = E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[\bigtriangledown_{\theta}log\pi_{\theta}(a|s)Q^{\omega}(s, a)\right].\tag{1}</script><p>This equation consists of two estimator:  policy estimator $\pi_{\theta}$ and action-value estimator $Q^{\omega}$. The policy estimator is referred to as actor and the update of its parameters follow $\bigtriangledown_{\theta}J(\pi_{\theta})$, while the action-value estimator is  referred to as critic and the update of its parameters follow $\bigtriangledown_{\omega} E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[(Q^{\omega}(s,a) - Q^{\pi}(s,a)^2)\right]$, where $Q^{\pi}$ is the true action-value. In contrast to using $Q^{\pi}$, using $Q^{\omega}$ may introduce bias but can reduce deviation effectively.</p>
+\bigtriangledown_{\theta}J(\pi_{\theta}) = E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[\bigtriangledown_{\theta}log\pi_{\theta}(a|s)Q^{\omega}(s, a)\right].\tag{1}</script><p>This equation consists of two approximators:  policy approximator $\pi_{\theta}$ and action-value approximator $Q^{\omega}$. The policy approximator is referred to as actor and the update of its parameters follow $\bigtriangledown_{\theta}J(\pi_{\theta})$, while the action-value approximator is  referred to as critic and the update of its parameters follow $\bigtriangledown_{\omega} E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[(Q^{\omega}(s,a) - Q^{\pi}(s,a)^2)\right]$, where $Q^{\pi}$ is the true action-value. In contrast to using $Q^{\pi}$, using $Q^{\omega}$ may introduce bias but can reduce deviation effectively.</p>
 <h4 id="Off-Policy-Actor-Critic"><a href="#Off-Policy-Actor-Critic" class="headerlink" title="Off-Policy Actor-Critic"></a>Off-Policy Actor-Critic</h4><p>In an off-policy setting, we can easily train the critic by using the temporal-difference error, however some modification is required for the estimation of the policy gradient.</p>
 <p>The performance objective is modified to be the value function of the target policy $\pi$, averaged over the state distribution of the behavior policy $\beta$:</p>
 <script type="math/tex; mode=display">\begin{align*}J_{\beta}(\pi_{\theta}) & = \int_{S} \rho^{\beta}(s)V^{\pi}(s)ds\\ & = \int_{S}\int_{A} \rho^{\beta}(s)\pi_{\theta}(a|s)Q^{\pi}(s,a)dads.\end{align*}\tag{2}</script><p>Differentiating above objective and applying an approximation gives the off-policy-gradient:</p>
@@ -145,7 +145,7 @@ log\pi_{\theta}(a|s)
 Q^{\pi}(s,a)
 \right]
 \end{align*}
-\tag{3}</script><p>Though the approximation drops a term that depends on the action-value gradient $\bigtriangledown_{\theta}Q^{\pi}(s,a)$, it is a good approximation since it can preserve the set of local optima to which gradient ascent converges. Note that the true action-value is unknown so we must use an estimator $V^v$ to approximate $V^{\pi}$and use the temporal-difference $r(s,a) + \gamma V^{v}(s’)$ to approximate $Q^{\pi}(s,a)$.</p>
+\tag{3}</script><p>Though the approximation drops a term that depends on the action-value gradient $\bigtriangledown_{\theta}Q^{\pi}(s,a)$, it is a good approximation since it can preserve the set of local optima to which gradient ascent converges. Note that the true action-value is unknown so we must use an approximator $V^v$ to approximate $V^{\pi}$and use the temporal-difference $r(s,a) + \gamma V^{v}(s’)$ to approximate $Q^{\pi}(s,a)$.</p>
 <h2 id="2-Deterministic-Actor-Critic-Algorithms"><a href="#2-Deterministic-Actor-Critic-Algorithms" class="headerlink" title="2 Deterministic Actor-Critic Algorithms"></a>2 Deterministic Actor-Critic Algorithms</h2><p>Analogous to the stochastic actor-critic algorithms, we derive on-policy deterministic ac and off-policy deterministic ac respectively. Before the derivation, we first introduce the  deterministic policy gradient.</p>
 <h3 id="Deterministic-Policy-Gradient"><a href="#Deterministic-Policy-Gradient" class="headerlink" title="Deterministic Policy Gradient"></a>Deterministic Policy Gradient</h3><p>We consider a deterministic policy $\mu_{\theta}: S \rightarrow A$ with parameter $\theta \in R^n$. We define a performance objective $J(\mu_{\theta}) = E\left[r^{\gamma}|\mu\right]$, and define probability distribution $p(s \rightarrow s’,t,\mu)$ and discounted state distribution $\rho^{\mu}(s)$ analogously to the stochastic case. Then let us write the performance objective as an expectation:</p>
 <script type="math/tex; mode=display">
@@ -223,6 +223,12 @@ E_{s \sim \rho^{\beta}}
 \right]
 \end{align*}
 \tag{10}</script><p>This equation gives the off-policy deterministic policy gradient. Analogous to the stochastic case (Equation 3), we have dropped a term that depends on $\triangledown_{\theta}Q^{\mu_{\theta}}(s,a)$.</p>
+<h2 id="DPG-Algorithm"><a href="#DPG-Algorithm" class="headerlink" title="DPG Algorithm"></a>DPG Algorithm</h2><div style="width:70%;margin:auto">
+  <img src="/2021/02/15/Deterministic-Policy-Gradient-DPG/1.png" class="" title="Figure 1">
+</div>
+
+<p>Figure 1 outlines the DPG algorithm clearly. As shown in Figure 1, DPG contains two function approximator: actor $\mu_{\theta}$ and critic $Q_{\psi}$. Actor is updated followed by the Equation 10 where $Q_{\mu}$ is substituted with $Q_{\psi}$ , and critic is updated followed by the gradient of MSE.</p>
+<p>Please note that DPG uses linear function approximators to approximate $Q_{\psi}$ and uses <em>COPDAC-Q</em> algorithm to update it, which can ensure the convergency of the DPG algorithm. We don’t elaborate it here because DDPG extends DPG to work with non-linear function approximators.</p>
 
       </div>
       
@@ -268,7 +274,7 @@ E_{s \sim \rho^{\beta}}
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Stochastic-Actor-Critic-Algorithms"><span class="toc-text">1 Stochastic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#On-Policy-Actor-Critic"><span class="toc-text">On-Policy Actor-Critic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Off-Policy-Actor-Critic"><span class="toc-text">Off-Policy Actor-Critic</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Deterministic-Actor-Critic-Algorithms"><span class="toc-text">2 Deterministic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deterministic-Policy-Gradient"><span class="toc-text">Deterministic Policy Gradient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#On-Policy-Deterministic-Actor-Critic"><span class="toc-text">On-Policy Deterministic Actor-Critic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-Policy-Deterministic-Actor-Critic"><span class="toc-text">Off-Policy Deterministic Actor-Critic</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Stochastic-Actor-Critic-Algorithms"><span class="toc-text">1 Stochastic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#On-Policy-Actor-Critic"><span class="toc-text">On-Policy Actor-Critic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Off-Policy-Actor-Critic"><span class="toc-text">Off-Policy Actor-Critic</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Deterministic-Actor-Critic-Algorithms"><span class="toc-text">2 Deterministic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deterministic-Policy-Gradient"><span class="toc-text">Deterministic Policy Gradient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#On-Policy-Deterministic-Actor-Critic"><span class="toc-text">On-Policy Deterministic Actor-Critic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-Policy-Deterministic-Actor-Critic"><span class="toc-text">Off-Policy Deterministic Actor-Critic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DPG-Algorithm"><span class="toc-text">DPG Algorithm</span></a></li></ol>
     </div>
   </div>
 
@@ -449,22 +455,5 @@ E_{s \sim \rho^{\beta}}
 
 
     </div>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>
