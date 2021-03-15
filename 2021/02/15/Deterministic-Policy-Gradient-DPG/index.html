@@ -123,10 +123,10 @@
         <p><a target="_blank" rel="noopener" href="http://proceedings.mlr.press/v32/silver14.pdf">Paper Link</a></p>
 <p>Deterministic Policy Gradient (DPG) is a special policy gradient method which can solve the tasks with deterministic policies.  DPG has an appealing form : it is the expected gradient of the action-value function. This simple form means that the deterministic gradient can be estimated much more efficiently than the usual stochastic policy gradient.</p>
 <h2 id="1-Stochastic-Actor-Critic-Algorithms"><a href="#1-Stochastic-Actor-Critic-Algorithms" class="headerlink" title="1 Stochastic Actor-Critic Algorithms"></a>1 Stochastic Actor-Critic Algorithms</h2><p>We first review traditional stochastic actor-critic algorithms, including on-policy actor-critic and off-policy actor-critic.</p>
-<h4 id="On-Policy-Actor-Critic"><a href="#On-Policy-Actor-Critic" class="headerlink" title="On-Policy Actor-Critic"></a>On-Policy Actor-Critic</h4><p>According to the policy gradient theorem, we can compute the gradient of the current policy $\pi_\theta$ as follows:</p>
+<h3 id="On-Policy-Actor-Critic"><a href="#On-Policy-Actor-Critic" class="headerlink" title="On-Policy Actor-Critic"></a>On-Policy Actor-Critic</h3><p>According to the policy gradient theorem, we can compute the gradient of the current policy $\pi_\theta$ as follows:</p>
 <script type="math/tex; mode=display">
 \bigtriangledown_{\theta}J(\pi_{\theta}) = E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[\bigtriangledown_{\theta}log\pi_{\theta}(a|s)Q^{\omega}(s, a)\right].\tag{1}</script><p>This equation consists of two approximators:  policy approximator $\pi_{\theta}$ and action-value approximator $Q^{\omega}$. The policy approximator is referred to as actor and the update of its parameters follow $\bigtriangledown_{\theta}J(\pi_{\theta})$, while the action-value approximator is  referred to as critic and the update of its parameters follow $\bigtriangledown_{\omega} E_{s \sim \rho^{\pi_\theta} , a \sim \pi_\theta} \left[(Q^{\omega}(s,a) - Q^{\pi}(s,a)^2)\right]$, where $Q^{\pi}$ is the true action-value. In contrast to using $Q^{\pi}$, using $Q^{\omega}$ may introduce bias but can reduce deviation effectively.</p>
-<h4 id="Off-Policy-Actor-Critic"><a href="#Off-Policy-Actor-Critic" class="headerlink" title="Off-Policy Actor-Critic"></a>Off-Policy Actor-Critic</h4><p>In an off-policy setting, we can easily train the critic by using the temporal-difference error, however some modification is required for the estimation of the policy gradient.</p>
+<h3 id="Off-Policy-Actor-Critic"><a href="#Off-Policy-Actor-Critic" class="headerlink" title="Off-Policy Actor-Critic"></a>Off-Policy Actor-Critic</h3><p>In an off-policy setting, we can easily train the critic by using the temporal-difference error, however some modification is required for the estimation of the policy gradient.</p>
 <p>The performance objective is modified to be the value function of the target policy $\pi$, averaged over the state distribution of the behavior policy $\beta$:</p>
 <script type="math/tex; mode=display">\begin{align*}J_{\beta}(\pi_{\theta}) & = \int_{S} \rho^{\beta}(s)V^{\pi}(s)ds\\ & = \int_{S}\int_{A} \rho^{\beta}(s)\pi_{\theta}(a|s)Q^{\pi}(s,a)dads.\end{align*}\tag{2}</script><p>Differentiating above objective and applying an approximation gives the off-policy-gradient:</p>
 <script type="math/tex; mode=display">
@@ -274,7 +274,7 @@ E_{s \sim \rho^{\beta}}
   <div class="post-catalog" id="catalog">
     <div class="title">目录</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Stochastic-Actor-Critic-Algorithms"><span class="toc-text">1 Stochastic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#On-Policy-Actor-Critic"><span class="toc-text">On-Policy Actor-Critic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Off-Policy-Actor-Critic"><span class="toc-text">Off-Policy Actor-Critic</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Deterministic-Actor-Critic-Algorithms"><span class="toc-text">2 Deterministic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deterministic-Policy-Gradient"><span class="toc-text">Deterministic Policy Gradient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#On-Policy-Deterministic-Actor-Critic"><span class="toc-text">On-Policy Deterministic Actor-Critic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-Policy-Deterministic-Actor-Critic"><span class="toc-text">Off-Policy Deterministic Actor-Critic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DPG-Algorithm"><span class="toc-text">DPG Algorithm</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Stochastic-Actor-Critic-Algorithms"><span class="toc-text">1 Stochastic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#On-Policy-Actor-Critic"><span class="toc-text">On-Policy Actor-Critic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-Policy-Actor-Critic"><span class="toc-text">Off-Policy Actor-Critic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Deterministic-Actor-Critic-Algorithms"><span class="toc-text">2 Deterministic Actor-Critic Algorithms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deterministic-Policy-Gradient"><span class="toc-text">Deterministic Policy Gradient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#On-Policy-Deterministic-Actor-Critic"><span class="toc-text">On-Policy Deterministic Actor-Critic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-Policy-Deterministic-Actor-Critic"><span class="toc-text">Off-Policy Deterministic Actor-Critic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DPG-Algorithm"><span class="toc-text">DPG Algorithm</span></a></li></ol>
     </div>
   </div>
 
@@ -455,5 +455,22 @@ E_{s \sim \rho^{\beta}}
 
 
     </div>
-  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>
