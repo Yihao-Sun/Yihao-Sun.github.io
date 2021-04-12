@@ -6,7 +6,7 @@
   <link href="https://yihao-sun.github.io/atom.xml" rel="self"/>
   
   <link href="https://yihao-sun.github.io/"/>
-  <updated>2021-03-02T06:04:42.000Z</updated>
+  <updated>2021-04-02T01:30:09.000Z</updated>
   <id>https://yihao-sun.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>策略梯度推导</title>
+    <link href="https://yihao-sun.github.io/2021/04/02/%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%8E%A8%E5%AF%BC/"/>
+    <id>https://yihao-sun.github.io/2021/04/02/%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E6%8E%A8%E5%AF%BC/</id>
+    <published>2021-04-02T01:30:09.000Z</published>
+    <updated>2021-04-02T01:30:09.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;策略梯度算法是强化学习中最重要的一类算法之一，我们将从源头对策略梯度算法进行推导，并且证明一系列的等价式。&lt;/p&gt;
+&lt;h2 id=&quot;1-策略梯度基础推导&quot;&gt;&lt;a href=&quot;#1-策略梯度基础推导&quot; class=&quot;headerlink&quot; title=&quot;1</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Pandas简易教程</title>

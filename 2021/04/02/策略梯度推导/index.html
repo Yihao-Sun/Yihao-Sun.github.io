@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="author" content="zchengsite, 1451426471@qq.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  <title>策略梯度推导 | To be a legend</title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="To be a legend" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/"><img src="/images/avatar.png" alt=""></a>
+    <div class="nickname"><a href="/">To be a legend</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">主页</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">归档</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">分类</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">标签</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tools/">
+          <a href="/tools/">实用工具</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">关于</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">策略梯度推导</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+          2021-04-02
+        </span>
+        
+      </div>
+      <div class="markdown-body">
+        <p>策略梯度算法是强化学习中最重要的一类算法之一，我们将从源头对策略梯度算法进行推导，并且证明一系列的等价式。</p>
+<h2 id="1-策略梯度基础推导"><a href="#1-策略梯度基础推导" class="headerlink" title="1 策略梯度基础推导"></a>1 策略梯度基础推导</h2><p>考虑一个有限马尔科夫决策模型，幕长为$T+1$，初始状态分布为$\rho(s)$策略为$\pi_{\theta}$。</p>
+<p><strong>1.轨迹概率</strong></p>
+<p>从$\pi_{\theta}$中采样到轨迹$\tau = (s_0, a_0, …, s_{T+1})$的概率是</p>
+<script type="math/tex; mode=display">
+P(\tau|\theta) = \rho_0(s_0) \prod_{t=0}^{T}P(s_{t+1}|s_t, a_t)\pi_{\theta}(a_t|s_t).</script><p><strong>2.对数求导技巧</strong></p>
+<script type="math/tex; mode=display">
+\bigtriangledown_{\theta}P(\tau|\theta) = 
+P(\tau|\theta)
+\bigtriangledown_{\theta}logP(\tau|\theta).</script><p><strong>3.对轨迹概率取对数</strong></p>
+<script type="math/tex; mode=display">
+logP(\tau|\theta) = log\rho_0(s_0) + \sum_{t=0}^T(logP(s_{t+1}|s_t, a_t) + log\pi_{\theta}(a_t|s_t)).</script><p><strong>4.对轨迹概率对数求导</strong></p>
+<p>由于$\bigtriangledown_{\theta}log\rho_0(s_0), \bigtriangledown_{\theta}<br>logP(s_{t+1}|s_t, a_t)$为0，所以</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\bigtriangledown_{\theta}logP(\tau|\theta)
+&=
+\bigtriangledown_{\theta}log\rho_0(s_0)
++
+\sum_{t=0}^T(
+\bigtriangledown_{\theta}
+logP(s_{t+1}|s_t, a_t)
++
+\bigtriangledown_{\theta}
+log\pi_{\theta}(a_t|s_t)
+)
+\\
+&=
+\sum_{t=0}^T
+\bigtriangledown_{\theta}
+log\pi_{\theta}(a_t|s_t).
+\\
+\end{align}</script><p>综合以上信息，我们可以对策略梯度的目标函数$J(\pi_{\theta})=\mathop{E}\limits_{\tau\sim\pi_{\theta}}[R(\tau)]$，($R(\tau)$为轨迹$\tau$的累计奖赏)进行求导</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+&=
+\bigtriangledown_{\theta}
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}[R(\tau)]
+\\
+&=
+\bigtriangledown_{\theta}
+\int_{\tau}P(\tau|\theta)R(\tau)
+\\
+&=
+\int_{\tau}\bigtriangledown_{\theta}P(\tau|\theta)R(\tau)
+\\
+&=
+\int_{\tau}P(\tau|\theta)\bigtriangledown_{\theta}logP(\tau|\theta)R(\tau)
+\\
+&=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}logP(\tau|\theta)R(\tau)]
+\\
+&=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)R(\tau)]
+\end{align}</script><p>我们可以通过大量采样近似期望：</p>
+<script type="math/tex; mode=display">
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+\approx
+\frac{1}{|D|}
+\sum_{\tau \in D}
+\sum_{t=0}^T
+\bigtriangledown_{\theta}
+log\pi_{\theta}(a_t|s_t)
+R(\tau)</script><p>其中$|D|$为轨迹数量。</p>
+<h2 id="2-“reward-to-go”版本的策略梯度"><a href="#2-“reward-to-go”版本的策略梯度" class="headerlink" title="2 “reward-to-go”版本的策略梯度"></a>2 “reward-to-go”版本的策略梯度</h2><p>上述的策略梯度中的$R(\tau)$是整幕的累积奖赏，这意味着智能体策略的每一个状态下的各个动作的概率都会受到整幕奖赏的影响，这从直觉上看是不科学的，因为一个状态下的各个动作的概率值应该受到从$s_t$执行$a_t$后一直到幕终止的累计回报的影响。有趣的是，这二者是完全等价的，下面将给出详细证明。</p>
+<p>首先对原有的策略梯度进行变形：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+&=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)R(\tau)]
+\\
+&=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)\sum_{t'=0}^{T}R(s_{t'},a_{t'},s_{t'+1})]
+\\
+&=
+\sum_{t=0}^{T}\sum_{t'=0}^{T}
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)R(s_{t'},a_{t'},s_{t'+1})],
+\end{align}</script><p>然后定义：</p>
+<script type="math/tex; mode=display">
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[f(t,t')]
+=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)R(s_{t'},a_{t'},s_{t'+1})].</script><p>只要证明$t’&lt;t$时，$\mathop{E}\limits_{\tau\sim\pi_{\theta}}[f(t,t’)]=0$即可。</p>
+<p>做如下推导：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[f(t,t')]
+&=
+\int_{\tau}P(\tau|\pi_{\theta})f(t,t')
+\\
+&=
+\int_{s_t,a_t,s_{t'},a_{t'},s_{t'+1}}P(s_t,a_t,s_{t'},a_{t'},s_{t'+1}|\pi_{\theta})f(t,t')
+，(f(t,t')只与s_t,a_t,s_{t'},a_{t'},s_{t'+1}有关)
+\\
+&=
+\int_{s_t,a_t,s_{t'},a_{t'},s_{t'+1}}P(s_t,a_t|\pi_{\theta},s_{t'},a_{t'},s_{t'+1})P(s_{t'},a_{t'},s_{t'+1}|\pi_{\theta})f(t,t')，（概率链式法则）
+\\
+&=
+\mathop{E}\limits_{s_{t'},a_{t'},s_{t'+1}\sim\pi_{\theta}}[
+\mathop{E}\limits_{s_t,a_t\sim\pi_{\theta}}
+[f(t,t')|s_{t'},a_{t'},s_{t'+1}]
+]
+\\
+&=
+\mathop{E}\limits_{s_{t'},a_{t'},s_{t'+1}\sim\pi_{\theta}}[
+\mathop{E}\limits_{s_t,a_t\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)R(s_{t'},a_{t'},s_{t'+1})|s_{t'},a_{t'},s_{t'+1}]
+]
+\\
+&=
+\mathop{E}\limits_{s_{t'},a_{t'},s_{t'+1}\sim\pi_{\theta}}[
+R(s_{t'},a_{t'},s_{t'+1})
+\mathop{E}\limits_{s_t,a_t\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)|s_{t'},a_{t'},s_{t'+1}]
+]，（R(s_{t'},a_{t'},s_{t'+1})对于s_t,a_t是常数）
+\end{align}</script><p>下面我们考虑项$\mathop{E}\limits_{s_t,a_t\sim\pi_{\theta}}<br>[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)|s_{t’},a_{t’},s_{t’+1}]$，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathop{E}\limits_{s_t,a_t\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)|s_{t'},a_{t'},s_{t'+1}]
+&=
+\int_{s_t,a_t}P(s_t,a_t|\pi_{\theta},s_{t'},a_{t'},s_{t'+1})
+\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+\\
+&=
+\int_{s_t}P(s_t|\pi_{\theta},s_{t'},a_{t'},s_{t'+1})
+\int_{a_t}\pi_{\theta}(a_t|s_t)
+\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+\\
+&=
+\mathop{E}\limits_{s_t\sim\pi_{\theta}}[
+\mathop{E}\limits_{a_t\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)|s_t]
+|s_{t'},a_{t'},s_{t'+1}
+].
+\end{align}</script><p>当$t’&lt;t$时，有$\mathop{E}\limits_{a_t\sim\pi_{\theta}}<br>[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)|s_t]=0$，所以$\mathop{E}\limits_{s_t\sim\pi_{\theta}}[<br>\mathop{E}\limits_{a_t\sim\pi_{\theta}}<br>[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)|s_t]<br>|s_{t’},a_{t’},s_{t’+1}<br>]=\mathop{E}\limits_{\tau\sim\pi_{\theta}}<br>[f(t,t’)]=0$。</p>
+<p>因此，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+&=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)R(\tau)]
+\\
+&=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+\sum_{t'=t}^{T}R(s_{t'},a_{t'},s_{t'+1})
+].
+\end{align}</script><p>虽然我们证明了基础版本的策略梯度与”reward-to-go”版本的策略梯度是完全等价的，然而在实际中二者并不完全相同，因为实际中使用大量采样去近似期望，这就导致了这两个版本的估计方差不同。对于相同样本数量，“reward-to-go”版本的策略梯度具有更小的估计方差，也就意味着降低了样本数量的需求。</p>
+<h2 id="3-带有基线-baseline-的策略梯度"><a href="#3-带有基线-baseline-的策略梯度" class="headerlink" title="3 带有基线(baseline)的策略梯度"></a>3 带有基线(baseline)的策略梯度</h2><p>首先我们证明对数概率期望引理（Expected Grad-Log-Prob Lemma，EGLP）：</p>
+<p><strong>EGLP Lemma.</strong> 假设$P_{\theta}(x)$是参数化的对于随机变量x的概率分布，那么有：</p>
+<script type="math/tex; mode=display">
+\mathop{E}\limits_{x \sim P_{\theta}}
+[\bigtriangledown_{\theta}logP_{\theta}(x)]
+=
+0.</script><p>证明如下：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathop{E}\limits_{x \sim P_{\theta}}
+[\bigtriangledown_{\theta}logP_{\theta}(x)]
+&=
+\int_{x}
+P_{\theta}(x)
+\bigtriangledown_{\theta}logP_{\theta}(x)
+\\
+&=
+\int_{x}
+\bigtriangledown_{\theta}P_{\theta}(x)
+\\
+&=
+\bigtriangledown_{\theta}
+\int_{x}
+P_{\theta}(x)
+\\
+&=
+\bigtriangledown_{\theta}1
+\\
+&=
+0.
+\end{align}</script><p>根据上述定理，我们可以得出：</p>
+<script type="math/tex; mode=display">
+\mathop{E}\limits_{a_t \sim \pi_{\theta}}
+[\bigtriangledown_{\theta}
+log\pi_{\theta}(a_t|s_t)
+b(s_t)]
+=
+0.</script><p>所以策略梯度可被改写为：</p>
+<script type="math/tex; mode=display">
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+(
+\sum_{t'=t}^{T}R(s_{t'},a_{t'},s_{t'+1})
+-
+b(s_t)
+)
+].</script><p>这里的$b(s_t)$被称为基线（baseline），任意与动作$a_t$无关的函数b都可以被当成基线。最长用的基线是状态价值函数$V^{\pi}(s_t)$，因为这样可以在采样估计策略梯度时显著降低估计方差。</p>
+<h2 id="4-其他形式的策略梯度"><a href="#4-其他形式的策略梯度" class="headerlink" title="4 其他形式的策略梯度"></a>4 其他形式的策略梯度</h2><p>到目前为止，我们可以发现策略梯度有如下通用形式：</p>
+<script type="math/tex; mode=display">
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+\Phi_t
+],</script><p>其中，$\Phi_t$的形式可以是</p>
+<script type="math/tex; mode=display">
+\Phi_t = R(\tau),</script><p>或是</p>
+<script type="math/tex; mode=display">
+\Phi_t = \sum_{t'=t}^{T}R(s_{t'},a_{t'},s_{t'+1}),</script><p>或是</p>
+<script type="math/tex; mode=display">
+\Phi_t = \sum_{t'=t}^{T}R(s_{t'},a_{t'},s_{t'+1})-b(s_t).</script><p>这些形式的策略梯度具有相同的数学期望，但是方差不同，除了上述三种形式，还有两种重要的形式。</p>
+<p>1.动作价值函数</p>
+<script type="math/tex; mode=display">
+\Phi_t = Q^{\pi_{\theta}}(s_t,a_t).</script><p>证明如下：</p>
+<p>我们从“reward-to-go”版本的策略梯度开始，并做如下简便表示$\hat{R_t}=\sum_{t’=t}^{T}R(s_{t’},a_{t’},s_{t’+1})$，那么</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+&=
+\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\sum_{t=0}^T\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)\hat{R_t}]
+\\
+&=
+\sum_{t=0}^{T}\mathop{E}\limits_{\tau\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)\hat{R_t}],
+\end{align*}</script><p>然后定义$\tau_{:t}=(s_0, a_0, …, s_t, a_t)$表示从起始到时间t的轨迹，$\tau_{t:}$表示剩余的轨迹，那么可以得到</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\bigtriangledown_{\theta}
+J(\pi_{\theta})
+&=
+\sum_{t=0}^T
+\mathop{E}\limits_{\tau_{:t}\sim\pi_{\theta}}
+[
+\mathop{E}\limits_{\tau_{t:}\sim\pi_{\theta}}
+[\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)\hat{R_t}|\tau_{:t}]
+]
+\\
+&=
+\sum_{t=0}^T
+\mathop{E}\limits_{\tau_{:t}\sim\pi_{\theta}}
+[
+\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+\mathop{E}\limits_{\tau_{t:}\sim\pi_{\theta}}
+[\hat{R_t}|\tau_{:t}]
+]，(\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)对于\mathop{E}\limits_{\tau_{t:}\sim\pi_{\theta}}是常数)
+\\
+&=
+\sum_{t=0}^T
+\mathop{E}\limits_{\tau_{:t}\sim\pi_{\theta}}
+[
+\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+\mathop{E}\limits_{\tau_{t:}\sim\pi_{\theta}}
+[\hat{R_t}|s_t,a_t]
+]，（根据马尔科夫决策过程的性质，在过去轨迹条件下的未来期望等于过去轨迹最后一个时间步的条件下的未来期望，即\mathop{E}\limits_{\tau_{t:}\sim\pi_{\theta}}
+[\hat{R_t}|\tau_{:t}]
+=
+\mathop{E}\limits_{\tau_{t:}\sim\pi_{\theta}}
+[\hat{R_t}|s_t,a_t]）
+\\
+&=
+\sum_{t=0}^T
+\mathop{E}\limits_{\tau_{:t}\sim\pi_{\theta}}
+[
+\bigtriangledown_{\theta}log\pi_{\theta}(a_t|s_t)
+Q^{\pi_{\theta}}(s_t,a_t)
+].
+\end{align*}</script><p>2.优势函数</p>
+<script type="math/tex; mode=display">
+\Phi_t = A^{\pi_{\theta}}(s_t,a_t).</script><p>上文已经证明了$\Phi_t = Q^{\pi_{\theta}}(s_t,a_t)$，在此基础上添加基线$b(s_t)=V^{\pi_{\theta}}(s_t)$，那么可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\Phi_t 
+&=
+Q^{\pi_{\theta}}(s_t,a_t)-V^{\pi_{\theta}}(s_t)
+\\
+&=
+A^{\pi_{\theta}}(s_t,a_t).
+\end{align*}</script>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/03/02/Pandas%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>PREV</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间 | updatetime"></i>
+              2021-04-02
+            </span>
+            
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%E5%9F%BA%E7%A1%80%E6%8E%A8%E5%AF%BC"><span class="toc-text">1 策略梯度基础推导</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E2%80%9Creward-to-go%E2%80%9D%E7%89%88%E6%9C%AC%E7%9A%84%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-text">2 “reward-to-go”版本的策略梯度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%B8%A6%E6%9C%89%E5%9F%BA%E7%BA%BF-baseline-%E7%9A%84%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-text">3 带有基线(baseline)的策略梯度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%B6%E4%BB%96%E5%BD%A2%E5%BC%8F%E7%9A%84%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-text">4 其他形式的策略梯度</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <div id="vcomments"></div>
+
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'xCrix3xuQasVLFiY1a1PUTbd-gzGzoHsz',
+      appKey: 'bCzXzANH4S53Q03rRywgXAGf',
+      placeholder: 'Welcome!',
+      avatar: 'retro'
+    })
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/Yihao-Sun">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微信" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="微博" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <a href="">Copyright © Yihao Sun 2020</a>
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile();
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+  </script>
+
+  
+<script src="/js/search.js"></script>
+
+
+
+
+    </div>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
